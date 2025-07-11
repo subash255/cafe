@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bits Cafe</title>
+    <title>Nepali Cafe</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;600;700&display=swap"
         rel="stylesheet">
@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <i class="ri-mail-open-fill"></i>
-                            <span> <a href="mailto:" class="hover:text-gray-100">info@bitscafe.com</a>
+                            <span> <a href="mailto:" class="hover:text-gray-100">info@nepalicafe.com</a>
                             </span>
                         </div>
                     </div>
@@ -65,46 +65,42 @@
         </div>
 
         <!-- Main Navigation Bar -->
-        <div class="w-full bg-tertiary sticky top-0 z-30 p-2 shadow-lg">
-            <div class="xl:max-w-7xl w-full mx-auto text-black font-bold flex justify-between p-4 items-center">
-                <div class="flex items-center space-x-4">
-                    <!-- Logo -->
-                    <a href="/">
-                        <img src="images/bits.png" alt="logo" class="w-24">
-                    </a>
-                </div>
-                <div class="hidden md:flex items-center justify-center w-full">
-                    <!-- Menu Links (Centered) -->
-                    <ul class="flex items-center space-x-6 mx-auto">
-                        <li><a href="/" class="hover:text-secondary">Home</a></li>
-                        <li><a href="{{route('about')}}" class="hover:text-secondary">About Us</a></li>
-                        <li><a href="#" class="hover:text-secondary">Menu</a></li>
-                        <li><a href="#" class="hover:text-secondary">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="hidden md:flex items-center space-x-6">
-                    <!-- Reservation Button -->
-                    <a href="#tablereservation"
-                        class="bg-secondary text-tertiary px-4 py-2 rounded-full hover:bg-primary transition-all">
-                        Reservation
-                    </a>
-                    <!-- Shopping Cart Icon -->
-                    <a href="#" class="relative">
-                        <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
-                    </a>
-                </div>
-                <div class="md:hidden flex items-center space-x-4">
-                    <!-- Cart Icon -->
-                    <a href="#" class="relative">
-                        <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
-                    </a>
-                    <!-- Hamburger Menu Icon and Cart for Mobile -->
-                    <button id="menu" class="text-3xl text-black">
-                        <i class="ri-menu-line"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="w-full bg-tertiary sticky top-0 z-30 shadow-lg">
+    <div class="xl:max-w-7xl w-full mx-auto text-black font-bold flex justify-between px-4 items-center">
+        <div class="flex items-center space-x-4">
+            <!-- Logo -->
+            <a href="/">
+        <img src="images/g.png" alt="logo" class="max-h-32 w-auto object-contain">
+            </a>
         </div>
+        <div class="hidden md:flex items-center justify-center w-full">
+            <ul class="flex items-center space-x-6 mx-auto">
+                <li><a href="/" class="hover:text-secondary">Home</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-secondary">About Us</a></li>
+                <li><a href="#" class="hover:text-secondary">Menu</a></li>
+                <li><a href="#" class="hover:text-secondary">Contact</a></li>
+            </ul>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="#tablereservation"
+               class="bg-secondary text-tertiary px-4 py-2 rounded-full hover:bg-primary transition-all">
+                Reservation
+            </a>
+            <a href="#" class="relative">
+                <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+            </a>
+        </div>
+        <div class="md:hidden flex items-center space-x-4">
+            <a href="#" class="relative">
+                <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+            </a>
+            <button id="menu" class="text-3xl text-black">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
         
         <!-- Mobile Navigation (Hamburger Menu) -->
         <div id="mobile-menu" class="md:hidden hidden">
@@ -129,12 +125,12 @@
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between flex-wrap gap-8 md:gap-24">
                 <!-- Left Section (Logo and Text) -->
                 <div class="mb-6 md:mb-0 w-full md:w-auto">
-                    <a href="/" class="inline-block px-4 py-2 border bg-tertiary rounded-lg">
+                    <a href="/" class="inline-block px-4 bg-white rounded-lg">
                         <!-- Logo Image -->
-                        <img src="images/bits.png" alt="Bits Logo" class="w-32">
+                        <img src="images/g.png" alt="Logo" class="w-48">
                     </a>
                     <p class="text-sm text-tertiary mt-2 max-w-xs md:max-w-sm text-justify">
-                        Bits Cafe offers a cozy environment to enjoy delicious meals, premium coffee, and excellent service. Visit us today and experience the best cafe vibes!
+                        Nepali Cafe offers a cozy environment to enjoy delicious meals, premium coffee, and excellent service. Visit us today and experience the best cafe vibes!
                     </p>
                     <div class="flex space-x-3 mt-4">
                         <a href="#" class="bg-blue-500 shadow-md rounded-full w-8 h-8 flex items-center justify-center p-2">
@@ -176,7 +172,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <i class="ri-mail-line text-tertiary"></i>
-                            <p class="text-sm text-tertiary font-semibold">info@bitscafe.com</p>
+                            <p class="text-sm text-tertiary font-semibold">info@nepalicafe.com</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <i class="ri-map-pin-line text-tertiary"></i>
@@ -189,7 +185,7 @@
             <hr class="border-t border-gray-300 my-6">
         
             <div class="text-center text-xs text-tertiary">
-                &copy; {{ date('Y') }} Bits Cafe. All rights reserved.
+                &copy; {{ date('Y') }} Nepali Cafe. All rights reserved.
             </div>
         </footer>
         
