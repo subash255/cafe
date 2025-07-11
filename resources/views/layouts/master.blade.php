@@ -77,7 +77,7 @@
             <ul class="flex items-center space-x-6 mx-auto">
                 <li><a href="/" class="hover:text-secondary">Home</a></li>
                 <li><a href="{{ route('about') }}" class="hover:text-secondary">About Us</a></li>
-                <li><a href="#" class="hover:text-secondary">Menu</a></li>
+                <li><a href="{{route('menu')}}" class="hover:text-secondary">Menu</a></li>
                 <li><a href="{{route('contact')}}" class="hover:text-secondary">Contact</a></li>
             </ul>
         </div>

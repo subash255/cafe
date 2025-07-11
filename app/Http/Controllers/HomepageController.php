@@ -21,4 +21,10 @@ class HomepageController extends Controller
         return view('contact');
     }
 
+    public function menu()
+    {
+        // Logic for displaying the menu can be added here
+        return view('menu');
+    }
+
 }
