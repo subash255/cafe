@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Welcome | Nepali Cafe')
 @section('content')
     <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 14, 14, 0.5)), url('images/bg.jpg')"
         class="bg-cover bg-center w-full">

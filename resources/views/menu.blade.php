@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Menu | Nepali Cafe')
 @section('content')
 
 <!-- Hero Section with Enhanced Design -->

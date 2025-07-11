@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Contact Us | Nepali Cafe')
 @section('content')
 
 <div style="background-image: url('images/cup.jpeg');" class="bg-cover h-36 md:h-40 relative">
