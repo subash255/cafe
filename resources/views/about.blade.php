@@ -26,7 +26,7 @@
                 is a place where community, great food, and great conversation come together.
             </p>
             <p class="mt-3 text-lg md:text-xl text-quaternary leading-relaxed mb-6 text-justify">
-                At BITS Cafe, we pride ourselves on providing a welcoming space for everyone—whether you're stopping by for a quick coffee or spending a few hours working or socializing. Our team is passionate about making every visit a special experience for you.
+                At our Cafe, we pride ourselves on providing a welcoming space for everyone—whether you're stopping by for a quick coffee or spending a few hours working or socializing. Our team is passionate about making every visit a special experience for you.
             </p>
         </div>
         
