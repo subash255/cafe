@@ -1,47 +1,41 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.master')
 
-    <form method="POST" action="{{ route('login') }}">
+@section('title', 'Login | Nepali Cafe')
+
+@section('content')
+<div class="flex items-center justify-center min-h-screen bg-[#fef6f0] py-12 px-4">
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+
+    <!-- Image Section -->
+    <div class="hidden md:block md:w-1/2 bg-cover bg-center"
+      style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+    </div>
+
+    <!-- Form Section -->
+    <div class="w-full md:w-1/2 p-8">
+      <div class="mb-6 text-center">
+          <img src="{{ asset('images/g.png') }}" alt="Nepali Cafe Logo" class="mx-auto h-24 mb-4">
+        <h2 class="text-3xl font-bold text-primary">Welcome to Nepali Cafe </h2>
+        <p class="text-sm text-gray-500 mt-1">Login to your account and enjoy our delicious offerings</p>
+      </div>
+
+      <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
+        <input type="email" name="email" placeholder="Email"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <input type="password" name="password" placeholder="Password"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <button type="submit"
+          class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition">Login</button>
+      </form>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+      <div class="mt-4 text-center text-sm">
+        Don’t have an account?
+        <a href="{{ route('register') }}" class="text-primary hover:underline">Register here</a>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection

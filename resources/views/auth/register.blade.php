@@ -1,52 +1,48 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+@extends('layouts.master')
+
+@section('title', 'Register | Nepali Cafe')
+
+@section('content')
+<div class="flex items-center justify-center min-h-screen bg-[#fef6f0] py-16 px-4">
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+
+    <!-- Image Section -->
+    <div class="hidden md:block md:w-1/2 bg-cover bg-center"
+      style="background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+    </div>
+
+    <!-- Form Section -->
+    <div class="w-full md:w-1/2 p-8">
+      <div class="mb-6 text-center">
+        <img src="{{ asset('images/g.png') }}" alt="Nepali Cafe Logo" class="mx-auto h-24 mb-4">
+        <h2 class="text-3xl font-bold text-primary">Join Nepali Cafe </h2>
+        <p class="text-sm text-gray-500 mt-1">Create an account to enjoy our delicious offerings</p>
+      </div>
+
+      <form method="POST" action="{{ route('register') }}" class="space-y-4">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <input type="text" name="name" placeholder="Full Name"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <input type="email" name="email" placeholder="Email"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <input type="password" name="password" placeholder="Password"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+        <input type="password" name="password_confirmation" placeholder="Confirm Password"
+          class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary" required>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        <button type="submit"
+          class="w-full bg-primary text-white py-2 rounded hover:bg-secondary transition">Register</button>
+      </form>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+      <div class="mt-4 text-center text-sm">
+        Already have an account?
+        <a href="{{ route('login') }}" class="text-primary hover:underline">Login here</a>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
