@@ -78,7 +78,7 @@
                 <li><a href="/" class="hover:text-secondary">Home</a></li>
                 <li><a href="{{ route('about') }}" class="hover:text-secondary">About Us</a></li>
                 <li><a href="#" class="hover:text-secondary">Menu</a></li>
-                <li><a href="#" class="hover:text-secondary">Contact</a></li>
+                <li><a href="{{route('contact')}}" class="hover:text-secondary">Contact</a></li>
             </ul>
         </div>
         <div class="hidden md:flex items-center space-x-6">
@@ -153,7 +153,7 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="{{route('about')}}">About Us</a></li>
                             <li><a href="#">Menu</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{{route('contact')}}">Contact</a></li>
                         </ul>
                     </div>
                     <div class="w-full">

@@ -22,7 +22,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-6 border-l-4 border-primary pl-4">Introduction</h2>
             <p class="text-lg md:text-xl text-quaternary leading-relaxed mb-6 text-justify">
                 We are more than just a cafe; we are a cozy corner where you can relax, enjoy a freshly brewed cup of coffee,
-                and savor homemade pastries, all while enjoying a warm atmosphere. Located in the heart of Chitwan, BITS Cafe
+                and savor homemade pastries, all while enjoying a warm atmosphere. Located in the heart of Chitwan, Nepali Cafe
                 is a place where community, great food, and great conversation come together.
             </p>
             <p class="mt-3 text-lg md:text-xl text-quaternary leading-relaxed mb-6 text-justify">
@@ -55,7 +55,7 @@
             </p>
         
             <p class="mt-3 text-lg md:text-xl text-quaternary leading-relaxed text-justify">
-                At BITS Cafe, we believe in fostering a sense of community. Every cup of coffee we serve is brewed with care, and every dish is made with the freshest ingredients. We aim to inspire creativity, conversation, and connection in every corner of our cafe.
+                At Nepali Cafe, we believe in fostering a sense of community. Every cup of coffee we serve is brewed with care, and every dish is made with the freshest ingredients. We aim to inspire creativity, conversation, and connection in every corner of our cafe.
             </p>
         </div>
         

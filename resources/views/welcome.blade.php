@@ -5,13 +5,13 @@
         <div class="text-tertiary py-12 sm:py-16 md:py-24 lg:py-36 xl:px-0 lg:px-0 sm:px-6">
             <div class="xl:max-w-7xl w-full mx-auto px-6">
                 <h3 class="font-bold uppercase text-center sm:text-left">
-                    Welcome to Bits Cafe
+                    Welcome to Nepali Cafe
                 </h3>
                 <h1 class="md:text-4xl sm:text-3xl text-2xl font-bold mt-6 text-center sm:text-left">
                     The best place to enjoy your meal
                 </h1>
                 <p class="mt-6 sm:text-base text-sm text-center sm:text-left">
-                    At Bits Cafe, we offer a cozy and welcoming atmosphere where you can relax and savor your favorite meals
+                    At Nepali Cafe, we offer a cozy and welcoming atmosphere where you can relax and savor your favorite meals
                     and drinks. <br class="lg:block hidden"> Come in, unwind, and enjoy the perfect blend of flavors,
                     comfort, and good company.
                 </p>
@@ -44,7 +44,7 @@
                 <div>
                     <h2 class="text-4xl font-semibold text-secondary leading-tight border-l-4 border-primary pl-4">About Us</h2>
                     <p class="mt-2 text-lg text-quaternary leading-relaxed">
-                        Bits Cafe is a family-owned cafe that has been proudly serving the community for over 20 years. Our
+                        Nepali Cafe is a family-owned cafe that has been proudly serving the community for over 20 years. Our
                         mission is to provide an exceptional dining experience with every visit, ensuring you feel at home
                         in our cozy atmosphere.
                     </p>
