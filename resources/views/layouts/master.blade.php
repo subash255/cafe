@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bits Cafe</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body class="font-[Jost]">
+    <div class="min-h-screen bg-gray-100">
+
+        <!-- Top bar for Social and Contact Info -->
+        <div class="px-2 bg-primary hidden md:block">
+            <div class="xl:max-w-7xl w-full mx-auto grid grid-cols-2 h-8">
+                <div>
+                    <div class="flex items-center h-full justify-left text-xs">
+                        <a href="#" target="_blank" class="group">
+                            <div
+                                class="group-hover:-translate-y-1 duration-300 transition ease-in-out delay-75 bg-tertiary h-6 w-6 rounded-full text-tertiary relative flex items-center justify-center mx-1">
+                                <i class="ri-facebook-fill text-blue-800"></i>
+                            </div>
+                        </a>
+                        <a href="#" target="_blank" class="group">
+                            <div
+                                class="group-hover:-translate-y-1 duration-300 transition ease-in-out delay-75 bg-tertiary h-6 w-6 rounded-full text-tertiary relative flex items-center justify-center mx-1">
+                                <i class="ri-instagram-fill text-pink-600"></i>
+                            </div>
+                        </a>
+                        <a href="#" target="_blank" class="group">
+                            <div
+                                class="group-hover:-translate-y-1 duration-300 transition ease-in-out delay-75 bg-tertiary h-6 w-6 rounded-full text-tertiary relative flex items-center justify-center mx-1">
+                                <i class="ri-whatsapp-fill text-green-700"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="flex text-gray-50 items-center h-full text-sm font-medium justify-end">
+                        <div class="pr-4">
+                            <i class="ri-phone-fill"></i>
+                            <span>
+                                <a href="tel:+" class="hover:text-gray-100">+977-981153424</a>
+                            </span>
+                        </div>
+                        <div>
+                            <i class="ri-mail-open-fill"></i>
+                            <span> <a href="mailto:" class="hover:text-gray-100">info@bitscafe.com</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation Bar -->
+        <div class="w-full bg-tertiary sticky top-0 z-30 p-2 shadow-lg">
+            <div class="xl:max-w-7xl w-full mx-auto text-black font-bold flex justify-between p-4 items-center">
+                <div class="flex items-center space-x-4">
+                    <!-- Logo -->
+                    <a href="/">
+                        <img src="images/bits.png" alt="logo" class="w-24">
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center justify-center w-full">
+                    <!-- Menu Links (Centered) -->
+                    <ul class="flex items-center space-x-6 mx-auto">
+                        <li><a href="/" class="hover:text-secondary">Home</a></li>
+                        <li><a href="{{route('about')}}" class="hover:text-secondary">About Us</a></li>
+                        <li><a href="#" class="hover:text-secondary">Menu</a></li>
+                        <li><a href="#" class="hover:text-secondary">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <!-- Reservation Button -->
+                    <a href="#tablereservation"
+                        class="bg-secondary text-tertiary px-4 py-2 rounded-full hover:bg-primary transition-all">
+                        Reservation
+                    </a>
+                    <!-- Shopping Cart Icon -->
+                    <a href="#" class="relative">
+                        <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center space-x-4">
+                    <!-- Cart Icon -->
+                    <a href="#" class="relative">
+                        <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+                    </a>
+                    <!-- Hamburger Menu Icon and Cart for Mobile -->
+                    <button id="menu" class="text-3xl text-black">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (Hamburger Menu) -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="bg-gray-800 text-tertiary p-4">
+                <ul>
+                    <li><a href="/" class="block py-2 hover:text-secondary">Home</a></li>
+                    <li><a href="{{route('about')}}" class="block py-2 hover:text-secondary">About Us</a></li>
+                    <li><a href="#" class="block py-2 hover:text-secondary">Menu</a></li>
+                    <li><a href="#" class="block py-2 hover:text-secondary">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+
+
+        <!-- Main Content Area -->
+        <main>
+            @yield('content')
+        </main>
+
+        <footer class="bg-primary text-tertiary py-10 px-5 md:px-20">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between flex-wrap gap-8 md:gap-24">
+                <!-- Left Section (Logo and Text) -->
+                <div class="mb-6 md:mb-0 w-full md:w-auto">
+                    <a href="/" class="inline-block px-4 py-2 border bg-tertiary rounded-lg">
+                        <!-- Logo Image -->
+                        <img src="images/bits.png" alt="Bits Logo" class="w-32">
+                    </a>
+                    <p class="text-sm text-tertiary mt-2 max-w-xs md:max-w-sm text-justify">
+                        Bits Cafe offers a cozy environment to enjoy delicious meals, premium coffee, and excellent service. Visit us today and experience the best cafe vibes!
+                    </p>
+                    <div class="flex space-x-3 mt-4">
+                        <a href="#" class="bg-blue-500 shadow-md rounded-full w-8 h-8 flex items-center justify-center p-2">
+                            <i class="ri-facebook-fill text-xl text-tertiary"></i>
+                        </a>
+                        <a href="#" class="bg-pink-600 shadow-md rounded-full w-8 h-8 flex items-center justify-center p-2">
+                            <i class="ri-instagram-fill text-xl text-tertiary"></i>
+                        </a>
+                        <a href="#" class="bg-blue-400 shadow-md rounded-full w-8 h-8 flex items-center justify-center p-2">
+                            <i class="ri-twitter-fill text-xl text-tertiary"></i>
+                        </a>
+                    </div>
+                </div>
+        
+                <!-- Right Section (Quick Links, Policy, and Contact Info) -->
+                <div class="mt-8 md:mt-0 w-full md:w-auto space-y-6 md:space-y-0 flex flex-col md:flex-row justify-end md:space-x-20 flex-grow">
+                    <div class="w-full">
+                        <h3 class="text-md font-bold relative">Quick Links</h3>
+                        <ul class="text-sm font-semibold text-tertiary mt-2 space-y-2">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="{{route('about')}}">About Us</a></li>
+                            <li><a href="#">Menu</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-md font-bold relative">Policy</h3>
+                        <ul class="text-sm font-semibold text-tertiary mt-2 space-y-2">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Shipping</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full space-y-2">
+                        <h3 class="text-md font-bold">Get In Touch</h3>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-phone-line text-tertiary"></i>
+                            <p class="text-sm text-tertiary font-semibold">+977-981153424</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-mail-line text-tertiary"></i>
+                            <p class="text-sm text-tertiary font-semibold">info@bitscafe.com</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-map-pin-line text-tertiary"></i>
+                            <p class="text-sm text-tertiary font-semibold">Chitwan, Nepal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <hr class="border-t border-gray-300 my-6">
+        
+            <div class="text-center text-xs text-tertiary">
+                &copy; {{ date('Y') }} Bits Cafe. All rights reserved.
+            </div>
+        </footer>
+        
+        
+
+    </div>
+
+    <!-- Scripts for the Mobile Menu Toggle -->
+    <script>
+        const menuButton = document.getElementById('menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+     <!-- Swiper Script -->
+     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+     <script>
+         // Initialize Swiper after DOM is fully loaded
+         document.addEventListener('DOMContentLoaded', function() {
+             var swiperMenus = new Swiper('.swiper-container', {
+                 loop: true,
+                 slidesPerView: 3, // Default for larger screens
+                 spaceBetween: 20, // Space between slides
+                 autoplay: {
+                     delay: 3000, // 3 seconds
+                     disableOnInteraction: false, // Keep autoplay after user interaction
+                 },
+                 // pagination: {
+                 //     el: '.swiper-pagination', // The container for the dots
+                 //     clickable: true,          // Make the dots clickable
+                 // },
+                 breakpoints: {
+                     320: { // For very small screens (mobile)
+                         slidesPerView: 1, // Show 1 slide on very small screens
+                         spaceBetween: 10, // Smaller space between slides
+                     },
+                     480: { // For small screens (larger mobile, tablet portrait)
+                         slidesPerView: 1, // Show 1 slide
+                         spaceBetween: 15,
+                     },
+                     640: {
+                         slidesPerView: 2, // Show 2 slides for small tablets
+                         spaceBetween: 15,
+                     },
+                     768: {
+                         slidesPerView: 2, // Show 2 slides for larger mobile/tablets
+                         spaceBetween: 20,
+                     },
+                     1024: {
+                         slidesPerView: 3, // Show 3 slides for laptops and larger devices
+                         spaceBetween: 20,
+                     },
+                 }
+             });
+ 
+             // Testimonials Swiper Initialization
+             var swiperTestimonials = new Swiper('.swiper-testimonials', {
+                 loop: true,
+                 slidesPerView: 3,
+                 spaceBetween: 30,
+                 autoplay: {
+                     delay: 3000,
+                     disableOnInteraction: false,
+                 },
+                 navigation: {
+                     nextEl: '.swiper-button-next',
+                     prevEl: '.swiper-button-prev',
+                 },
+                 breakpoints: {
+                     320: { // For very small screens (mobile)
+                         slidesPerView: 1, // Show 1 slide on very small screens
+                         spaceBetween: 10, // Smaller space between slides
+                     },
+                     480: { // For small screens (larger mobile, tablet portrait)
+                         slidesPerView: 1, // Show 1 slide
+                         spaceBetween: 15,
+                     },
+                     640: {
+                         slidesPerView: 2, // Show 2 slides for small tablets
+                         spaceBetween: 15,
+                     },
+                     768: {
+                         slidesPerView: 2, // Show 2 slides for larger mobile/tablets
+                         spaceBetween: 20,
+                     },
+                     1024: {
+                         slidesPerView: 3, // Show 3 slides for laptops and larger devices
+                         spaceBetween: 20,
+                     },
+                 }
+             });
+         });
+     </script>
+ 
+     <!-- Include Flatpickr JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             // Initialize Flatpickr for the Date input
+             flatpickr("input[type='date']", {
+                 dateFormat: "Y-m-d", // Set the date format
+                 minDate: "today", // Optional: prevent selecting past dates
+             });
+ 
+             // Initialize Flatpickr for the Time input
+             flatpickr("input[type='time']", {
+                 enableTime: true, // Enable time input
+                 noCalendar: true, // Disable calendar (we only need time)
+                 dateFormat: "H:i", // Set the time format (24-hour clock)
+             });
+         });
+     </script>
+</body>
+
+</html>
