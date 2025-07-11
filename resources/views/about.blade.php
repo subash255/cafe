@@ -109,7 +109,7 @@
                         <span class="text-secondary text-xl">“</span>The staff is friendly, and the food is always fresh.
                         I’m definitely coming back for more!<span class="text-secondary text-xl">”</span>
                     </p>
-                    <h4 class="mt-4 text-primary font-bold">Aman Chaudary</h4>
+                    <h4 class="mt-4 text-primary font-bold">Ishika Sigdel</h4>
                 </div>
                 <!-- Testimonial 4 -->
                 <div class="swiper-slide bg-tertiary border border-gray-200 rounded-lg shadow-lg p-6 text-center">
@@ -122,7 +122,7 @@
                         <span class="text-secondary text-xl">“</span>Absolutely love this place. The fruit bowls are
                         always so fresh and refreshing!<span class="text-secondary text-xl">”</span>
                     </p>
-                    <h4 class="mt-4 text-primary font-bold">Gaurav Sapkota</h4>
+                    <h4 class="mt-4 text-primary font-bold">Pramisha Thapa</h4>
                 </div>
                 <!-- Testimonial 5 -->
                 <div class="swiper-slide bg-tertiary border border-gray-200 rounded-lg shadow-lg p-6 text-center">
@@ -135,7 +135,7 @@
                         <span class="text-secondary text-xl">“</span>The food here is amazing! The coffee and pastries
                         are the perfect combination. <span class="text-secondary text-xl">”</span>
                     </p>
-                    <h4 class="mt-4 text-primary font-bold">Sudip Parajuli</h4>
+                    <h4 class="mt-4 text-primary font-bold">Aakash Kandel</h4>
                 </div>
             </div>
         </div>

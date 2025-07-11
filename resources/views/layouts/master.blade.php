@@ -51,12 +51,12 @@
                         <div class="pr-4">
                             <i class="ri-phone-fill"></i>
                             <span>
-                                <a href="tel:+" class="hover:text-gray-100">+977-981153424</a>
+                                <a href="tel:+9811442231" class="hover:text-gray-100">+977-9811442231</a>
                             </span>
                         </div>
                         <div>
                             <i class="ri-mail-open-fill"></i>
-                            <span> <a href="mailto:" class="hover:text-gray-100">info@nepalicafe.com</a>
+                            <span> <a href="mailto:info@nepalicafe.com" class="hover:text-gray-100">info@nepalicafe.com</a>
                             </span>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                         <h3 class="text-md font-bold">Get In Touch</h3>
                         <div class="flex items-center space-x-2">
                             <i class="ri-phone-line text-tertiary"></i>
-                            <p class="text-sm text-tertiary font-semibold">+977-981153424</p>
+                            <p class="text-sm text-tertiary font-semibold">+977-9811442231</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <i class="ri-mail-line text-tertiary"></i>
