@@ -96,46 +96,76 @@
 
                     @auth
                         <!-- Authenticated: Cart, Username and Avatar -->
-                        <a href="{{ route('cart') }}" class="relative">
+                        <a href="#" class="relative">
                             <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
                             {{-- Optional: Add cart item count badge here --}}
                         </a>
 
-                        <div class="flex items-center space-x-2 cursor-pointer group relative">
-                            <!-- User Avatar -->
-                            <img src="{{ Auth::user()->profile_photo_url ?? asset('images/default-avatar.png') }}"
-                                alt="{{ Auth::user()->name }}"
-                                class="h-8 w-8 rounded-full object-cover border border-gray-300" />
-                            <!-- Username -->
-                            <span class="font-medium text-primary">{{ Auth::user()->name }}</span>
+                        <div class="relative">
+                            <div class="flex items-center space-x-2 cursor-pointer group" onclick="toggleDropdown()">
+                                <!-- User Avatar -->
+                                <img src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=6366f1&color=ffffff' }}"
+                                    alt="{{ Auth::user()->name }}"
+                                    class="h-8 w-8 rounded-full object-cover border border-gray-300" />
+                                <!-- Username -->
+                                <span class="font-medium text-primary">{{ Auth::user()->name }}</span>
 
-                            <!-- Optional dropdown arrow -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
+                                <!-- Dropdown arrow -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary transition-transform duration-200" id="dropdown-arrow" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
 
-                            <!-- Dropdown menu example (hidden by default, toggle with JS) -->
-                            {{-- 
-      <div
-        class="absolute right-0 mt-10 w-40 bg-white border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity"
-      >
-        <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
-        </form>
-      </div> 
-      --}}
+                            <!-- Dropdown menu -->
+                            <div id="user-dropdown"
+                                class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible transform scale-95 transition-all duration-200 z-50">
+                                <div class="py-2">
+                                    <div class="px-4 py-2 border-b border-gray-100">
+                                        <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                                        <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                                    </div>
+                                    
+                                    @if(Auth::user()->isAdmin())
+                                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                            <i class="ri-dashboard-line mr-2"></i>
+                                            Admin Dashboard
+                                        </a>
+                                    @else
+                                        <a href="{{ route('user.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                            <i class="ri-dashboard-line mr-2"></i>
+                                            My Dashboard
+                                        </a>
+                                    @endif
+                                    
+                                    <a href="{{ route('profile.edit') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                        <i class="ri-user-line mr-2"></i>
+                                        Profile Settings
+                                    </a>
+                                    
+                                    <div class="border-t border-gray-100 mt-1">
+                                        <form method="POST" action="{{ route('logout') }}" class="block">
+                                            @csrf
+                                            <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                                <i class="ri-logout-box-line mr-2"></i>
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endauth
 
                 </div>
 
                 <div class="md:hidden flex items-center space-x-4">
-                    <a href="#" class="relative">
-                        <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
-                    </a>
+                    @auth
+                        <a href="#" class="relative">
+                            <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+                        </a>
+                    @endauth
+                    
                     <button id="menu" class="text-3xl text-black">
                         <i class="ri-menu-line"></i>
                     </button>
@@ -147,11 +177,39 @@
         <!-- Mobile Navigation (Hamburger Menu) -->
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="bg-gray-800 text-tertiary p-4">
-                <ul>
+                <ul class="space-y-2">
                     <li><a href="/" class="block py-2 hover:text-secondary">Home</a></li>
                     <li><a href="{{ route('about') }}" class="block py-2 hover:text-secondary">About Us</a></li>
-                    <li><a href="#" class="block py-2 hover:text-secondary">Menu</a></li>
-                    <li><a href="#" class="block py-2 hover:text-secondary">Contact</a></li>
+                    <li><a href="{{ route('menu') }}" class="block py-2 hover:text-secondary">Menu</a></li>
+                    <li><a href="{{ route('contact') }}" class="block py-2 hover:text-secondary">Contact</a></li>
+                    
+                    @guest
+                        <div class="border-t border-gray-600 mt-4 pt-4">
+                            <li><a href="{{ route('login') }}" class="block py-2 hover:text-secondary">Login</a></li>
+                            <li><a href="{{ route('register') }}" class="block py-2 hover:text-secondary">Register</a></li>
+                        </div>
+                    @endguest
+                    
+                    @auth
+                        <div class="border-t border-gray-600 mt-4 pt-4">
+                            <li class="text-sm text-gray-400 px-2">{{ Auth::user()->name }}</li>
+                            
+                            @if(Auth::user()->isAdmin())
+                                <li><a href="{{ route('admin.dashboard') }}" class="block py-2 hover:text-secondary">Admin Dashboard</a></li>
+                            @else
+                                <li><a href="{{ route('user.dashboard') }}" class="block py-2 hover:text-secondary">My Dashboard</a></li>
+                            @endif
+                            
+                            <li><a href="{{ route('profile.edit') }}" class="block py-2 hover:text-secondary">Profile Settings</a></li>
+                            
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}" class="block">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left py-2 hover:text-secondary text-red-400">Logout</button>
+                                </form>
+                            </li>
+                        </div>
+                    @endauth
                 </ul>
             </div>
         </div>
@@ -247,6 +305,37 @@
 
         menuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // User dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('user-dropdown');
+            const arrow = document.getElementById('dropdown-arrow');
+            
+            if (dropdown.classList.contains('opacity-0')) {
+                // Show dropdown
+                dropdown.classList.remove('opacity-0', 'invisible', 'scale-95');
+                dropdown.classList.add('opacity-100', 'visible', 'scale-100');
+                arrow.classList.add('rotate-180');
+            } else {
+                // Hide dropdown
+                dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                dropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('user-dropdown');
+            const userMenuButton = event.target.closest('[onclick="toggleDropdown()"]');
+            
+            if (!userMenuButton && dropdown && !dropdown.contains(event.target)) {
+                dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                dropdown.classList.remove('opacity-100', 'visible', 'scale-100');
+                const arrow = document.getElementById('dropdown-arrow');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
         });
     </script>
 

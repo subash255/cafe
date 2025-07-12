@@ -27,4 +27,9 @@ class HomepageController extends Controller
         return view('menu');
     }
 
+    public function dashboard()
+    {
+        // User dashboard - show user's reservations, order history, etc.
+        return view('dashboard');
+    }
 }
