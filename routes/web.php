@@ -8,9 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/',[HomepageController::class, 'index'])->name('home');
 Route::get('about',[HomepageController::class, 'about'])->name('about');
