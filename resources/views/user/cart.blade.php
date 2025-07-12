@@ -34,7 +34,7 @@
                         <td class="py-4 px-5">Rs {{ $item['price'] }}</td>
                         <td class="py-4 px-5 font-semibold">Rs {{ $total }}</td>
                         <td class="py-4 px-5">
-                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Remove</button>

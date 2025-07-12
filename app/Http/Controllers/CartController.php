@@ -17,7 +17,7 @@ class CartController extends Controller
         return view('user.cart', compact('cartItems'));
     }
 
-public function store(Request $request)
+public function store(Request $request , $id)
 {
     // 1.  Must be logged in
     if (!Auth::check()) {
@@ -28,58 +28,32 @@ public function store(Request $request)
 
     // 2.  Validate input
     $data = $request->validate([
-        'fooditem_id' => 'required|exists:fooditems,id',
+
         'quantity'    => 'required|integer|min:1',
         // It’s safer to recalc price from the DB, so price is optional here
     ]);
+     $cartLine = Cart::firstOrNew([
+            'user_id'     => Auth::id(),
+            'fooditem_id' => $id,
+        ]);
+        $fooditem = Fooditems::findOrFail($id);
 
-    // 3.  Fetch (or create) the cart line for this user & item
-    $cartLine = Cart::where('user_id', Auth::id())
-                    ->where('fooditem_id', $data['fooditem_id'])
-                    ->first();
-
-    if ($cartLine) {
-        // 🔄 Already in cart → just bump quantity
-        $cartLine->quantity += $data['quantity'];
-    } else {
-        // ➕ First time this item is added
-        $cartLine            = new Cart();
-        $cartLine->user_id   = Auth::id();
-        $cartLine->fooditem_id = $data['fooditem_id'];
-        $cartLine->quantity  = $data['quantity'];
-    }
-
-    // 4.  Always keep price in sync with the latest menu price
-    //     (prevents tampering from the client side)
-    $food = Fooditems::select('price')->find($data['fooditem_id']);
-    $cartLine->price = $food->price;
-
-    $cartLine->save();
+        $cartLine->quantity = ($cartLine->exists ? $cartLine->quantity : 0) + $data['quantity'];
+        $cartLine->price    = $fooditem->price;      // always sync with DB price
+        $cartLine->save();
 
     return back()->with('success', 'Item added to cart successfully!');
 }
 
-public function destroy($id)
+public function destroy($item)
 {
-    // 1.  Must be logged in
-    if (!Auth::check()) {
-        return redirect()
-            ->route('login')
-            ->with('error', 'You must be logged in to remove items from the cart.');
-    }
+    $cartLine = Cart::findOrFail($item);
 
-    // 2.  Find the cart line
-    $cartLine = Cart::where('user_id', Auth::id())
-                    ->where('id', $id)
-                    ->first();
+    abort_unless($cartLine->user_id === Auth::id(), 403);
 
-    if (!$cartLine) {
-        return back()->with('error', 'Item not found in your cart.');
-    }
-
-    // 3.  Delete it
     $cartLine->delete();
 
     return back()->with('success', 'Item removed from cart successfully!');
 }
+
 }

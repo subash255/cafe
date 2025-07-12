@@ -221,9 +221,9 @@
                             <p class="text-gray-600 mb-4 leading-relaxed">{{$menu->description}}</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-2xl font-bold text-secondary">{{$menu->price}}</span>
-                                <form action="{{ route('cart.store') }}" method="POST">
+                                <form action="{{ route('cart.store' ,$menu->id) }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="fooditem_id" value="{{ $menu->id }}">
+                
                                     <input type="hidden" name="quantity" value="1">
                                     <input type="hidden" name="price" value="{{ $menu->price }}">
                                     <button type="submit" class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
