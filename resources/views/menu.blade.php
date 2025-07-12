@@ -2,6 +2,32 @@
 @section('title', 'Menu | Nepali Cafe')
 @section('content')
 
+{{-- Enhanced Flash Message --}}
+@if (session('success'))
+<div id="flash-message" class="fixed top-6 right-6 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center">
+    <i class="ri-check-line text-xl mr-2"></i>
+    <span class="font-medium">{{ session('success') }}</span>
+</div>
+@endif
+
+@if (session('error'))
+<div id="flash-message" class="fixed top-6 right-6 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center">
+    <i class="ri-error-warning-line text-xl mr-2"></i>
+    <span class="font-medium">{{ session('error') }}</span>
+</div>
+@endif
+
+<script>
+    if (document.getElementById('flash-message')) {
+        setTimeout(() => {
+            const msg = document.getElementById('flash-message');
+            msg.style.opacity = 0;
+            msg.style.transform = 'translateX(100%)';
+            msg.style.transition = "all 0.5s ease-out";
+            setTimeout(() => msg.remove(), 500);
+        }, 3000);
+    }
+</script>
 <!-- Hero Section with Enhanced Design -->
 <div style="background-image: url('images/cup.jpeg');" class="bg-cover bg-center h-60 md:h-80 relative">
     <div class="bg-gradient-to-r from-black/80 via-black/60 to-black/40 absolute inset-0 flex items-center justify-center">
@@ -195,10 +221,17 @@
                             <p class="text-gray-600 mb-4 leading-relaxed">{{$menu->description}}</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-2xl font-bold text-secondary">{{$menu->price}}</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
+                                <form action="{{ route('cart.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="fooditem_id" value="{{ $menu->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="price" value="{{ $menu->price }}">
+                                    <button type="submit" class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
+                                        <i class="ri-shopping-cart-line"></i>
+                                        Add to Cart
+                                    </button>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>

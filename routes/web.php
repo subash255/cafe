@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FooditemsController;
 use App\Http\Controllers\HomepageController;
@@ -18,7 +19,18 @@ Route::get('menu',[HomepageController::class, 'menu'])->name('menu');
 Route::post('reservation',[ReservationController::class, 'store'])->name('reservation.store');
 
 // User dashboard route (for authenticated regular users)
-Route::middleware('auth')->get('dashboard', [HomepageController::class, 'dashboard'])->name('user.dashboard');
+Route::middleware('auth')->group(function(){
+    Route::get('dashboard', [HomepageController::class, 'dashboard'])->name('user.dashboard');
+ 
+    // Cart routes
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('cart/store', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.remove');
+Route::get('/checkout', [CartController::class, 'index'])->name('checkout.index');
+
+
+});
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -43,6 +55,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     //Reservation routes
     Route::get('admin/reservation',[ReservationController::class, 'index'])->name('admin.reservation.index');
     Route::delete('admin/reservation/{id}',[ReservationController::class, 'destroy'])->name('admin.reservation.delete');
+
 });
 
 Route::middleware('auth')->group(function () {

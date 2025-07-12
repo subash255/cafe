@@ -96,7 +96,7 @@
 
                     @auth
                         <!-- Authenticated: Cart, Username and Avatar -->
-                        <a href="#" class="relative">
+                        <a href="{{route('cart.index')}}" class="relative">
                             <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
                             {{-- Optional: Add cart item count badge here --}}
                         </a>
@@ -161,7 +161,7 @@
 
                 <div class="md:hidden flex items-center space-x-4">
                     @auth
-                        <a href="#" class="relative">
+                        <a href="{{route('cart.index')}}" class="relative">
                             <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
                         </a>
                     @endauth
