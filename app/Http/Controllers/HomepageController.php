@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fooditems;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -23,8 +24,9 @@ class HomepageController extends Controller
 
     public function menu()
     {
+        $menus = Fooditems::all();
         // Logic for displaying the menu can be added here
-        return view('menu');
+        return view('menu',compact('menus'));
     }
 
     public function dashboard()

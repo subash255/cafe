@@ -97,7 +97,7 @@
                 <i class="ri-eye-line text-green-600 text-xl"></i>
             </div>
             <div>
-                <p class="text-gray-600 text-sm">Active Categories</p>
+                <p class="text-gray-600 text-sm">Available Categories</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $categories->where('status', 1)->count() }}</p>
             </div>
         </div>

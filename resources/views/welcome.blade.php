@@ -1,6 +1,26 @@
 @extends('layouts.master')
 @section('title', 'Welcome | Nepali Cafe')
 @section('content')
+
+{{-- Enhanced Flash Message --}}
+@if (session('success'))
+<div id="flash-message" class="fixed top-6 right-6 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center">
+    <i class="ri-check-line text-xl mr-2"></i>
+    <span class="font-medium">{{ session('success') }}</span>
+</div>
+@endif
+
+<script>
+    if (document.getElementById('flash-message')) {
+        setTimeout(() => {
+            const msg = document.getElementById('flash-message');
+            msg.style.opacity = 0;
+            msg.style.transform = 'translateX(100%)';
+            msg.style.transition = "all 0.5s ease-out";
+            setTimeout(() => msg.remove(), 500);
+        }, 3000);
+    }
+</script>
     <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 14, 14, 0.5)), url('images/bg.jpg')"
         class="bg-cover bg-center w-full">
         <div class="text-tertiary py-12 sm:py-16 md:py-24 lg:py-36 xl:px-0 lg:px-0 sm:px-6">
@@ -168,12 +188,12 @@
                     </h3>
                 </div>
                 <div class="mt-10">
-                    <form action="#" autocomplete="off" method="POST">
-
+                    <form action="{{route('reservation.store')}}" autocomplete="off" method="POST">
+                        @csrf
                         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12">
                             <div>
                                 <label for="name" class="relative">
-                                    <input type="text" placeholder="Name"
+                                    <input type="text" placeholder="Name" name="name"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-user-3-line"></i>
@@ -183,7 +203,7 @@
 
                             <div>
                                 <label for="phone" class="relative">
-                                    <input type="text" placeholder="Phone"
+                                    <input type="text" placeholder="Phone" name="phone"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-phone-line"></i>
@@ -195,7 +215,7 @@
                         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
                             <div>
                                 <label for="people" class="relative">
-                                    <input type="text" placeholder="No. of People"
+                                    <input type="text" placeholder="No. of People" name="people"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-group-line"></i>
@@ -205,7 +225,7 @@
 
                             <div>
                                 <label for="date" class="relative">
-                                    <input type="date" placeholder="yyyy/mm/dd"
+                                    <input type="date" placeholder="yyyy/mm/dd" name="date"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-calendar-line"></i>
@@ -217,7 +237,7 @@
                         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
                             <div>
                                 <label for="time" class="relative">
-                                    <input type="time" placeholder="Enter Time"
+                                    <input type="time" placeholder="Enter Time" name="time"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-time-line"></i>
@@ -228,7 +248,7 @@
 
                             <div>
                                 <label for="email" class="relative">
-                                    <input type="email" placeholder="Enter email"
+                                    <input type="email" placeholder="Enter email" name="email"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                         <i class="ri-mail-line"></i>

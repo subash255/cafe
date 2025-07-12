@@ -38,7 +38,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/fooditem/{id}/edit',[FooditemsController::class, 'edit'])->name('admin.fooditem.edit');
     Route::patch('admin/fooditem/{id}',[FooditemsController::class, 'update'])->name('admin.fooditem.update');
     Route::delete('admin/fooditem/{id}',[FooditemsController::class, 'delete'])->name('admin.fooditem.delete');
-    Route::post('admin/fooditem/update-toggle/{fooditemId}', [FooditemsController::class, 'updateToggle']);
+    Route::post('admin/fooditem/update-toggle/{fooditemId}', [FooditemsController::class, 'updateToggle'])->name('admin.fooditem.updatetoggle');
 
     //Reservation routes
     Route::get('admin/reservation',[ReservationController::class, 'index'])->name('admin.reservation.index');

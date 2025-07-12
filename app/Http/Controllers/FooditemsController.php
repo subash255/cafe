@@ -24,6 +24,7 @@ class FooditemsController extends Controller
             'description'=>'nullable|string|max:255',
             'price'=>'required|numeric',
             'category_id'=>'required|exists:categories,id',
+            'type'=>'required|string',
         ]);
 
         if($request->hasFile('image')){
@@ -54,6 +55,7 @@ class FooditemsController extends Controller
             'description'=>'nullable|string|max:255',
             'price'=>'required|numeric',
             'category_id'=>'required|exists:categories,id',
+            
         ]);
 
         $fooditem=Fooditems::findOrFail($id);

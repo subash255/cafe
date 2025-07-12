@@ -165,9 +165,10 @@
                 <!-- Menu Items Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                     <!-- Enhanced Item Card 1 -->
+                     @foreach($menus as $menu)
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?coffee" alt="Cappuccino" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="{{ asset('fooditem/' . $menu->image) }}" alt="{{ $menu->name }}"  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                             <div class="absolute top-4 left-4">
                                 <span class="bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
                             </div>
@@ -179,7 +180,7 @@
                         </div>
                         <div class="p-6">
                             <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Cappuccino</h3>
+                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">{{$menu->name}}</h3>
                                 <div class="flex items-center">
                                     <div class="flex text-yellow-400 text-sm">
                                         <i class="ri-star-fill"></i>
@@ -191,9 +192,9 @@
                                     <span class="text-gray-500 text-xs ml-1">(4.2)</span>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Freshly brewed with steamed milk and a perfect foam art. Made with premium arabica beans.</p>
+                            <p class="text-gray-600 mb-4 leading-relaxed">{{$menu->description}}</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$4.50</span>
+                                <span class="text-2xl font-bold text-secondary">{{$menu->price}}</span>
                                 <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
                                     <i class="ri-shopping-cart-line"></i>
                                     Add to Cart
@@ -201,196 +202,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Enhanced Item Card 2 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?tea" alt="Green Tea" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">Organic</span>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Green Tea</h3>
-                                <div class="flex items-center">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                    </div>
-                                    <span class="text-gray-500 text-xs ml-1">(4.8)</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Organic and refreshing green tea with antioxidant properties. Perfect for a healthy lifestyle.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$3.00</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Enhanced Item Card 3 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?cake" alt="Chocolate Cake" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium">Chef's Special</span>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Chocolate Cake</h3>
-                                <div class="flex items-center">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-line"></i>
-                                    </div>
-                                    <span class="text-gray-500 text-xs ml-1">(4.5)</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Rich and moist chocolate cake made with premium Belgian chocolate. A true indulgence for chocolate lovers.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$5.50</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Item Card 4 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?croissant" alt="Butter Croissant" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">Fresh Baked</span>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Butter Croissant</h3>
-                                <div class="flex items-center">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-half-line"></i>
-                                    </div>
-                                    <span class="text-gray-500 text-xs ml-1">(4.6)</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Flaky, buttery croissant baked fresh daily. Perfect with your morning coffee or afternoon tea.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$3.75</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Item Card 5 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?smoothie" alt="Berry Smoothie" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-medium">Healthy</span>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Berry Smoothie</h3>
-                                <div class="flex items-center">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-line"></i>
-                                    </div>
-                                    <span class="text-gray-500 text-xs ml-1">(4.3)</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Fresh blend of mixed berries, yogurt, and honey. Packed with vitamins and natural goodness.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$4.25</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Additional Item Card 6 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="relative overflow-hidden">
-                            <img src="https://source.unsplash.com/400x300/?sandwich" alt="Club Sandwich" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-medium">Bestseller</span>
-                            </div>
-                            <div class="absolute top-4 right-4">
-                                <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-2">
-                                <h3 class="font-bold text-xl text-gray-800 group-hover:text-secondary transition-colors">Club Sandwich</h3>
-                                <div class="flex items-center">
-                                    <div class="flex text-yellow-400 text-sm">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                    </div>
-                                    <span class="text-gray-500 text-xs ml-1">(4.9)</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 mb-4 leading-relaxed">Triple-layered sandwich with turkey, bacon, lettuce, tomato, and our special sauce. Served with fries.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">$8.75</span>
-                                <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
-                                    <i class="ri-shopping-cart-line"></i>
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                  @endforeach
+                    
                 </div>
 
                 <!-- Load More Button -->
