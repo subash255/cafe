@@ -1,113 +1,186 @@
 @extends('layouts.app')
 @section('content')
-    <style>
-        #myChart {
-            width: 100% !important;
-            max-width: 100%;
-            height: 400px;
-            max-height: 500px;
-            margin: 0 auto;
-        }
+<style>
+    .dashboard-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .stat-icon {
+        background: linear-gradient(135deg, var(--icon-color-1), var(--icon-color-2));
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .chart-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+    }
+</style>
 
-        #orderLineChart {
-            height: 285px !important;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Cards Section -->
-    <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3 mx-4 z-20 rounded-lg">
-        <!-- Pending Orders Card -->
-        <div
-            class="bg-white p-6 text-left hover:shadow-2xl flex flex-row items-center justify-between w-full h-20 rounded-lg transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg z-[5]">
+
+<!-- Welcome Section -->
+<div class="mb-8">
+    <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white">
+        <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-gray-700 font-medium">Pending Orders</h2>
-                <p class="text-gray-700 font-medium">1</p>
+                <h1 class="text-3xl font-bold mb-2">Welcome back, {{ Auth::user()->name }}! 👋</h1>
+                <p class="text-blue-100 text-lg">Here's what's happening with your cafe today</p>
             </div>
-            <div class="bg-yellow-500 text-white w-12 h-12 flex items-center justify-center rounded-full">
+            <div class="hidden md:block">
+                <div class="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="ri-dashboard-3-line text-4xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Pending Orders Card -->
+    <div class="dashboard-card rounded-2xl p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Pending Orders</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">1</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-sm text-green-600 font-medium">+2.5%</span>
+                    <span class="text-sm text-gray-500 ml-2">vs yesterday</span>
+                </div>
+            </div>
+            <div class="stat-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white" 
+                 style="--icon-color-1: #f59e0b; --icon-color-2: #d97706;">
                 <i class="ri-time-line text-2xl"></i>
             </div>
         </div>
+    </div>
 
-        <!-- Reservation Card -->
-        <div
-            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
+    <!-- Total Reservations Card -->
+    <div class="dashboard-card rounded-2xl p-6">
+        <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-gray-700 font-medium mb-2">Total Reservations</h2>
-                <p class="text-gray-700 font-medium">2</p>
+                <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Total Reservations</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">2</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-sm text-green-600 font-medium">+5.2%</span>
+                    <span class="text-sm text-gray-500 ml-2">vs yesterday</span>
+                </div>
             </div>
-            <div class="bg-yellow-600 text-white w-12 h-12 flex items-center justify-center rounded-full">
-                <i class="ri-calendar-check-fill text-2xl"></i>
-            </div>
-        </div>
-
-        <!-- Sales Card -->
-        <div
-            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
-            <div>
-                <h2 class="text-gray-700 font-medium mb-2">Total Sales</h2>
-                <p class="text-gray-700 font-medium">€300</p>
-            </div>
-            <div class="bg-purple-600 text-white w-12 h-12 flex items-center justify-center rounded-full">
-                <i class="ri-money-dollar-circle-fill text-2xl"></i>
-            </div>
-        </div>
-
-        <!-- Orders Card -->
-        <div
-            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-4 lg:-translate-y-8 shadow-lg">
-            <div>
-                <h2 class="text-gray-700 font-medium mb-2">Orders</h2>
-                <p class="text-gray-700 font-medium">4</p>
-            </div>
-            <div class="bg-green-500 text-white w-12 h-12 flex items-center justify-center rounded-full">
-                <i class="ri-shopping-cart-fill text-2xl"></i>
-            </div>
-        </div>
-
-
-
-        <!-- Visitors Card -->
-        <div
-            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-4 lg:-translate-y-8 shadow-lg">
-            <div>
-                <h2 class="text-gray-700 font-medium mb-2">Visitors</h2>
-                <p class="text-gray-700 font-medium">5</p>
-            </div>
-            <div class="bg-red-500 text-white w-12 h-12 flex items-center justify-center rounded-full">
-                <i class="ri-earth-fill text-2xl"></i>
+            <div class="stat-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                 style="--icon-color-1: #8b5cf6; --icon-color-2: #7c3aed;">
+                <i class="ri-calendar-check-line text-2xl"></i>
             </div>
         </div>
     </div>
 
-    <!-- <div class="grid sm:grid-cols-3 gap-4 px-4">
-        <!-- Order Line Chart 
-        <div class="bg-white rounded-lg p-6 w-full col-span-2">
-            <h2 class="text-xl font-semibold text-center mb-4">Daily Orders</h2>
-            <canvas id="orderLineChart"></canvas>
-        </div>
-
-        Category Pie Chart
-        <div class="bg-white rounded-lg p-6 w-full">
-            <h2 class="text-xl font-semibold text-center">Categories and Fooditems Count</h2>
-            <canvas id="categoryChart"></canvas>
+    <!-- Total Sales Card -->
+    <div class="dashboard-card rounded-2xl p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Total Sales</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">$300</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-sm text-green-600 font-medium">+12.5%</span>
+                    <span class="text-sm text-gray-500 ml-2">vs yesterday</span>
+                </div>
+            </div>
+            <div class="stat-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                 style="--icon-color-1: #10b981; --icon-color-2: #059669;">
+                <i class="ri-money-dollar-circle-line text-2xl"></i>
+            </div>
         </div>
     </div>
-    <div class="flex items-center justify-center py-8 px-4">
-        <div class="w-full">
-            <div class="flex flex-col justify-between h-full">
-                <div>
-                    <div class="lg:flex w-full justify-between">
-                        <h3 class="text-gray-600 dark:text-gray-100 leading-5 text-base md:text-xl font-bold">Details of
-                            Visits</h3>
+
+    <!-- Total Orders Card -->
+    <div class="dashboard-card rounded-2xl p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-600 uppercase tracking-wide">Total Orders</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">4</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-sm text-green-600 font-medium">+8.1%</span>
+                    <span class="text-sm text-gray-500 ml-2">vs yesterday</span>
+                </div>
+            </div>
+            <div class="stat-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white"
+                 style="--icon-color-1: #3b82f6; --icon-color-2: #2563eb;">
+                <i class="ri-shopping-cart-line text-2xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Chart Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+   
+
+    <!-- Quick Stats -->
+    <div class="space-y-6">
+        <!-- Popular Items -->
+        <div class="chart-container p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Popular Items Today</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                        <span class="text-gray-700">Cappuccino</span>
+                    </div>
+                    <span class="text-gray-900 font-semibold">24</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                        <span class="text-gray-700">Chocolate Cake</span>
+                    </div>
+                    <span class="text-gray-900 font-semibold">18</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                        <span class="text-gray-700">Green Tea</span>
+                    </div>
+                    <span class="text-gray-900 font-semibold">15</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="chart-container p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Recent Activity</h3>
+            <div class="space-y-3">
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                    <div>
+                        <p class="text-sm text-gray-700">New order received</p>
+                        <p class="text-xs text-gray-500">2 minutes ago</p>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <canvas id="myChart" role="img"
-                        aria-label="line graph to show selling overview in terms of months and numbers"></canvas>
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                    <div>
+                        <p class="text-sm text-gray-700">Reservation confirmed</p>
+                        <p class="text-xs text-gray-500">15 minutes ago</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                    <div>
+                        <p class="text-sm text-gray-700">New menu item added</p>
+                        <p class="text-xs text-gray-500">1 hour ago</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+</div>
 
-    
+
 @endsection
