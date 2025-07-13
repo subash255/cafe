@@ -188,7 +188,74 @@
         margin-top: 2rem;
     }
     
+    /* Enhanced Modal Styling with Better Sizing */
+    .modern-modal {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        padding: 1rem;
+    }
+    
+    .modal-content {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #e2e8f0;
+        max-height: 90vh;
+        overflow-y: auto;
+        width: 100%;
+        max-width: 90vw;
+    }
+    
+    .modern-input {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+    }
+    
+    .modern-input:focus {
+        border-color: #3b82f6;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .modern-button {
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .file-upload-area {
+        border: 2px dashed #d1d5db;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background: #f9fafb;
+    }
+    
+    .file-upload-area:hover {
+        border-color: #3b82f6;
+        background: #eff6ff;
+    }
+    
+    .modal-hidden {
+        display: none !important;
+    }
+    
+    .modal-visible {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
     @media (max-width: 768px) {
+        .modal-content {
+            max-width: 95vw;
+            max-height: 95vh;
+            margin: 1rem;
+            padding: 1rem;
+        }
+        
         .modern-table thead {
             display: none;
         }
@@ -212,6 +279,18 @@
             border: 1px solid #e5e7eb;
             border-radius: 12px;
             overflow: hidden;
+        }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .modal-content {
+            max-width: 85vw;
+        }
+    }
+    
+    @media (min-width: 1025px) {
+        .modal-content {
+            max-width: 70vw;
         }
     }
 </style>

@@ -122,12 +122,12 @@
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
                             <div class="relative flex-1">
-                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs. </span>
                                 <input type="number" placeholder="Min" class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
                             </div>
                             <span class="text-gray-400">to</span>
                             <div class="relative flex-1">
-                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs. </span>
                                 <input type="number" placeholder="Max" class="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
                             </div>
                         </div>
@@ -146,15 +146,15 @@
                     <div class="space-y-3 text-sm">
                         <div class="flex items-center justify-between">
                             <span class="text-gray-700">Cappuccino</span>
-                            <span class="text-secondary font-medium">$4.50</span>
+                            <span class="text-secondary font-medium">Rs. 4.50</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-gray-700">Chocolate Cake</span>
-                            <span class="text-secondary font-medium">$5.50</span>
+                            <span class="text-secondary font-medium">Rs. 5.50</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-gray-700">Green Tea</span>
-                            <span class="text-secondary font-medium">$3.00</span>
+                            <span class="text-secondary font-medium">Rs. 3.00</span>
                         </div>
                     </div>
                 </div>
@@ -220,13 +220,13 @@
                             </div>
                             <p class="text-gray-600 mb-4 leading-relaxed">{{$menu->description}}</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-secondary">{{$menu->price}}</span>
+                                <span class="text-xl font-bold text-secondary">Rs. {{$menu->price}}</span>
                                 <form action="{{ route('cart.store' ,$menu->id) }}" method="POST">
                                     @csrf
                 
                                     <input type="hidden" name="quantity" value="1">
                                     <input type="hidden" name="price" value="{{ $menu->price }}">
-                                    <button type="submit" class="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
+                                    <button type="submit" class="bg-secondary hover:bg-secondary/90 text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
                                         <i class="ri-shopping-cart-line"></i>
                                         Add to Cart
                                     </button>

@@ -95,7 +95,7 @@
 
 <!-- Enhanced Modal Structure -->
 <div id="fooditemModal" class="fixed inset-0 modern-modal modal-hidden items-center justify-center z-50">
-    <div class="modal-content p-8 w-full max-w-5xl mx-4 relative">
+    <div class="modal-content p-6 w-full relative">
         <div class="flex items-center justify-between mb-6">
             <div>
                 <h2 class="text-2xl font-bold text-gray-800">Add New Food Item</h2>
@@ -109,22 +109,22 @@
         <form action="{{ route('admin.fooditem.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="space-y-4">
                     
-                         <div>
-                <label for="fooditem" class="block text-sm font-semibold text-gray-700 mb-2">Fooditem Name</label>
-                <input type="text" id="fooditem" name="name" placeholder="Enter fooditem name"
-                    class="modern-input w-full px-4 py-3 text-gray-800 placeholder-gray-500"
-                    oninput="generateSlug()">
-            </div>
+                    <div>
+                        <label for="fooditem" class="block text-sm font-semibold text-gray-700 mb-2">Food Item Name</label>
+                        <input type="text" id="fooditem" name="name" placeholder="Enter food item name"
+                            class="modern-input w-full px-4 py-3 text-gray-800 placeholder-gray-500"
+                            oninput="generateSlug()">
+                    </div>
 
-            <!-- Slug Input -->
-            <div>
-                <label for="slug" class="block text-sm font-semibold text-gray-700 mb-2">Slug</label>
-                <input type="text" id="slug" name="slug" placeholder="Generated automatically"
-                    class="modern-input w-full px-4 py-3 text-gray-800 placeholder-gray-500">
-            </div>
+                    <!-- Slug Input -->
+                    <div>
+                        <label for="slug" class="block text-sm font-semibold text-gray-700 mb-2">Slug</label>
+                        <input type="text" id="slug" name="slug" placeholder="Generated automatically"
+                            class="modern-input w-full px-4 py-3 text-gray-800 placeholder-gray-500">
+                    </div>
 
                     <div>
                         <label for="category_id" class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
@@ -138,19 +138,19 @@
                     </div>
 
                     <div>
-                        <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">Price ($)</label>
+                        <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">Price (Rs.)</label>
                         <div class="relative">
-                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">Rs. </span>
                             <input type="number" id="price" name="price" placeholder="0.00" step="0.01" min="0"
                                 class="modern-input w-full pl-8 pr-4 py-3 text-gray-800 placeholder-gray-500" required>
                         </div>
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-4">
                     <div>
                         <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                        <textarea id="description" name="description" rows="4" placeholder="Describe your delicious food item..."
+                        <textarea id="description" name="description" rows="3" placeholder="Describe your delicious food item..."
                             class="modern-input w-full px-4 py-3 text-gray-800 placeholder-gray-500 resize-none"></textarea>
                     </div>
 
@@ -166,21 +166,21 @@
 
                     <div>
                         <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Food Image</label>
-                        <div class="file-upload-area p-6 text-center" onclick="document.getElementById('image').click()">
+                        <div class="file-upload-area p-4 text-center" onclick="document.getElementById('image').click()">
                             <input type="file" id="image" name="image" accept="image/*" required class="hidden" onchange="displayImagePreview(this)">
                             <div id="upload-placeholder">
-                                <i class="ri-image-add-line text-4xl text-gray-400 mb-3"></i>
-                                <p class="text-gray-600 mb-2">Click to upload food image</p>
-                                <p class="text-sm text-gray-500">PNG, JPG, JPEG up to 5MB</p>
+                                <i class="ri-image-add-line text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600 mb-1">Click to upload food image</p>
+                                <p class="text-xs text-gray-500">PNG, JPG, JPEG up to 5MB</p>
                                 <button type="button"
-                                    class="modern-button bg-blue-100 text-blue-600 px-4 py-2 hover:bg-blue-200">
+                                    class="modern-button bg-blue-100 text-blue-600 px-3 py-2 mt-2 hover:bg-blue-200 text-sm">
                                     Choose Image
                                 </button>
                             </div>
                             <div id="image-preview" class="hidden">
-                                <img id="preview-img" src="" alt="Preview" class="w-32 h-32 object-cover rounded-lg mx-auto mb-3">
+                                <img id="preview-img" src="" alt="Preview" class="w-24 h-24 object-cover rounded-lg mx-auto mb-2">
                                 <button type="button" onclick="removeImagePreview()"
-                                    class="modern-button bg-red-100 text-red-600 px-3 py-1 text-sm hover:bg-red-200">
+                                    class="modern-button bg-red-100 text-red-600 px-2 py-1 text-xs hover:bg-red-200">
                                     Remove
                                 </button>
                             </div>
@@ -189,13 +189,13 @@
                 </div>
             </div>
 
-            <div class="flex justify-end space-x-4 pt-6 border-t">
+            <div class="flex justify-end space-x-3 pt-4 border-t">
                 <button type="button" id="closeModalButton2"
-                    class="modern-button px-6 py-3 border-2 border-gray-300 text-gray-700 hover:bg-gray-50">
+                    class="modern-button px-4 py-2 border-2 border-gray-300 text-gray-700 hover:bg-gray-50">
                     Cancel
                 </button>
                 <button type="submit"
-                    class="modern-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 hover:from-blue-600 hover:to-blue-700 shadow-lg">
+                    class="modern-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-700 shadow-lg">
                     Add Food Item
                 </button>
             </div>
@@ -212,7 +212,6 @@
                     <tr>
                         <th>S.N</th>
                         <th>Food Item</th>
-                        <th>Slug</th>
                         <th>Category</th>
                         <th>Type</th>
                         <th>Price</th>
@@ -242,9 +241,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td data-label="Slug">
-                            <span class="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1 rounded-lg searchable-slug">{{ $fooditem->slug }}</span>
-                        </td>
+                        
                         <td data-label="Category">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-2">
@@ -268,7 +265,7 @@
                         </td>
                         <td data-label="Price">
                             <div class="flex items-center">
-                                <span class="text-lg font-bold text-green-600 searchable-price">${{ number_format($fooditem->price, 2) }}</span>
+                                <span class="text-lg font-bold text-green-600 searchable-price">Rs.{{ number_format($fooditem->price, 2) }}</span>
                             </div>
                         </td>
                         <td data-label="Status">
@@ -317,69 +314,6 @@
         </div>
     </div>
 </div>
-                                    <i class="ri-restaurant-line text-gray-400 text-2xl"></i>
-                                @endif
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{{ $fooditem->name }}</p>
-                                <p class="text-xs text-gray-500">{{ Str::limit($fooditem->description, 30) }}</p>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="px-6 py-4">
-                        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-lg">{{ $fooditem->slug }}</span>
-                    </td>
-                      <td class="px-6 py-4">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                            {{ optional($fooditem->category)->name }}
-                        </span>
-                    </td>
-                    
-                       <td class="px-6 py-4">
-                        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-lg">{{ $fooditem->type}}</span>
-                    </td>
-                      <td class="px-6 py-4">
-                        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-lg">{{ $fooditem->price }}</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <label for="status{{ $fooditem->id }}" class="inline-flex items-center cursor-pointer">
-                            <input id="status{{ $fooditem->id }}" type="checkbox" class="hidden toggle-switch" 
-                                   data-id="{{ $fooditem->id }}" {{ $fooditem->status ? 'checked' : '' }} />
-                            <div class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors duration-200 {{ $fooditem->status ? 'bg-blue-500' : '' }}">
-                                <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 {{ $fooditem->status ? 'transform translate-x-6' : '' }}"></div>
-                            </div>
-                            <span class="ml-2 text-sm {{ $fooditem->status ? 'text-green-600' : 'text-gray-500' }}">
-                                {{ $fooditem->status ? 'Active' : 'Inactive' }}
-                            </span>
-                        </label>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center space-x-2">
-                            <!-- Edit Button -->
-                            <a href="{{ route('admin.fooditem.edit', ['id' => $fooditem->id]) }}"
-                               class="w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors group">
-                                <i class="ri-edit-line text-blue-600 group-hover:text-blue-700"></i>
-                            </a>
-                            
-                            <!-- Delete Button -->
-                            <form action="{{ route('admin.fooditem.delete', ['id' => $fooditem->id]) }}" method="post"
-                                  onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                @csrf
-                                @method('delete')
-                                <button type="submit"
-                                        class="w-8 h-8 bg-red-100 hover:bg-red-200 rounded-lg flex items-center justify-center transition-colors group">
-                                    <i class="ri-delete-bin-line text-red-600 group-hover:text-red-700"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <script>
     // Search functionality
@@ -401,6 +335,27 @@
             row.style.display = isVisible ? '' : 'none';
         });
     });
+
+    // Image preview functionality
+    function displayImagePreview(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('upload-placeholder').classList.add('hidden');
+                document.getElementById('image-preview').classList.remove('hidden');
+                document.getElementById('preview-img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function removeImagePreview() {
+        document.getElementById('upload-placeholder').classList.remove('hidden');
+        document.getElementById('image-preview').classList.add('hidden');
+        document.getElementById('image').value = '';
+        document.getElementById('preview-img').src = '';
+    }
 
     // Enhanced Modal functionality
     function generateSlug() {
@@ -443,7 +398,7 @@
     document.getElementById('closeModalButton2').addEventListener('click', closeModal);
 
     // Close modal when clicking outside
-    document.getElementById('categoryModal').addEventListener('click', function(e) {
+    document.getElementById('fooditemModal').addEventListener('click', function(e) {
         if (e.target === this) {
             closeModal();
         }
@@ -459,14 +414,14 @@
             
             // Update UI immediately
             if (this.checked) {
-                toggleContainer.classList.add('bg-blue-500');
+                toggleContainer.classList.add('bg-gradient-to-r', 'from-green-400', 'to-green-500');
                 toggleContainer.classList.remove('bg-gray-200');
                 toggleContainer.querySelector('div').classList.add('transform', 'translate-x-6');
                 statusText.textContent = 'Active';
                 statusText.classList.add('text-green-600');
                 statusText.classList.remove('text-gray-500');
             } else {
-                toggleContainer.classList.remove('bg-blue-500');
+                toggleContainer.classList.remove('bg-gradient-to-r', 'from-green-400', 'to-green-500');
                 toggleContainer.classList.add('bg-gray-200');
                 toggleContainer.querySelector('div').classList.remove('transform', 'translate-x-6');
                 statusText.textContent = 'Inactive';
@@ -474,51 +429,8 @@
                 statusText.classList.add('text-gray-500');
             }
 
-            // Send AJAX request
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            fetch(`fooditem/update-toggle/${fooditemId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    state: newState,
-                    type: 'status',
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showNotification('Status updated successfully!', 'success');
-                } else {
-                    // Revert UI changes if request failed
-                    this.checked = !this.checked;
-                    // Revert toggle appearance
-                    if (this.checked) {
-                        toggleContainer.classList.add('bg-blue-500');
-                        toggleContainer.classList.remove('bg-gray-200');
-                        toggleContainer.querySelector('div').classList.add('transform', 'translate-x-6');
-                        statusText.textContent = 'Active';
-                        statusText.classList.add('text-green-600');
-                        statusText.classList.remove('text-gray-500');
-                    } else {
-                        toggleContainer.classList.remove('bg-blue-500');
-                        toggleContainer.classList.add('bg-gray-200');
-                        toggleContainer.querySelector('div').classList.remove('transform', 'translate-x-6');
-                        statusText.textContent = 'Inactive';
-                        statusText.classList.remove('text-green-600');
-                        statusText.classList.add('text-gray-500');
-                    }
-                    showNotification('Failed to update status', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                this.checked = !this.checked;
-                showNotification('An error occurred', 'error');
-            });
+            // You can add AJAX functionality here if needed
+            console.log(`Food item ${fooditemId} status changed to ${newState}`);
         });
     });
 
@@ -547,35 +459,6 @@
             setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
-
-    // Initialize DataTable with modern styling
-    $(document).ready(function() {
-        $('#fooditemTable').DataTable({
-            responsive: true,
-            pageLength: 10,
-            order: [[0, 'asc']],
-            columnDefs: [
-                { orderable: false, targets: [5] }
-            ],
-            language: {
-                search: "",
-                searchPlaceholder: "Search categories...",
-                lengthMenu: "Show _MENU_ entries",
-                info: "Showing _START_ to _END_ of _TOTAL_ fooditems",
-                paginate: {
-                    first: "First",
-                    last: "Last",
-                    next: "Next",
-                    previous: "Previous"
-                }
-            },
-            dom: '<"flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"<"flex items-center"l><"flex items-center"f>>rtip',
-        });
-
-        // Custom search styling
-        $('.dataTables_filter input').addClass('modern-input px-4 py-2 w-64');
-        $('.dataTables_length select').addClass('modern-input px-3 py-2');
-    });
 </script>
 
 @endsection

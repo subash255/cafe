@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title', 'Checkout')
 @section('content')
 
 {{-- Flash Messages --}}

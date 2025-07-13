@@ -69,7 +69,7 @@
                 <div class="flex items-center space-x-4">
                     <!-- Logo -->
                     <a href="/">
-                        <img src="images/g.png" alt="logo" class="max-h-32 w-auto object-contain">
+                        <img src="{{ asset('images/g.png') }}" alt="logo" class="max-h-32 w-auto object-contain">
                     </a>
                 </div>
                 <div class="hidden md:flex items-center justify-center w-full">
@@ -239,7 +239,7 @@
                 <div class="mb-6 md:mb-0 w-full md:w-auto">
                     <a href="/" class="inline-block px-4 bg-white rounded-lg">
                         <!-- Logo Image -->
-                        <img src="images/g.png" alt="Logo" class="w-48">
+                        <img src="{{ asset('images/g.png') }}" alt="Logo" class="w-48">
                     </a>
                     <p class="text-sm text-tertiary mt-2 max-w-xs md:max-w-sm text-justify">
                         Nepali Cafe offers a cozy environment to enjoy delicious meals, premium coffee, and excellent
@@ -269,7 +269,7 @@
                         <ul class="text-sm font-semibold text-tertiary mt-2 space-y-2">
                             <li><a href="/">Home</a></li>
                             <li><a href="{{ route('about') }}">About Us</a></li>
-                            <li><a href="#">Menu</a></li>
+                            <li><a href="{{route('menu')}}">Menu</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>

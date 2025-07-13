@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title', 'Order Success')
 @section('content')
 
 <div class="container mx-auto px-4 py-8">
