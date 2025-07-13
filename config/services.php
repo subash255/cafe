@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -35,4 +34,12 @@ return [
         ],
     ],
 
+    'esewa' => [
+        'merchant_code' => env('ESEWA_MERCHANT_CODE', 'EPAYTEST'),
+        'secret_key' => env('ESEWA_SECRET_KEY', '8gBm/:&EnhH.1/q'),
+        'base_url' => env('ESEWA_BASE_URL', 'https://rc-epay.esewa.com.np/api/epay/main/v2/form'),
+        'status_check_url' => env('ESEWA_STATUS_CHECK_URL', 'https://rc.esewa.com.np/api/epay/transaction/status/'),
+        'success_url' => env('ESEWA_SUCCESS_URL'),
+        'failure_url' => env('ESEWA_FAILURE_URL'),
+    ],
 ];

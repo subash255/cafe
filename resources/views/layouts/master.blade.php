@@ -98,7 +98,14 @@
                         <!-- Authenticated: Cart, Username and Avatar -->
                         <a href="{{route('cart.index')}}" class="relative">
                             <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
-                            {{-- Optional: Add cart item count badge here --}}
+                            @php
+                                $cartCount = Auth::check() ? \App\Models\Cart::where('user_id', Auth::id())->sum('quantity') : 0;
+                            @endphp
+                            @if($cartCount > 0)
+                                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
                         </a>
 
                         <div class="relative">
@@ -163,6 +170,11 @@
                     @auth
                         <a href="{{route('cart.index')}}" class="relative">
                             <i class="ri-shopping-cart-line text-2xl text-black hover:text-secondary"></i>
+                            @if($cartCount > 0)
+                                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
                         </a>
                     @endauth
                     

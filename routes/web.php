@@ -26,16 +26,19 @@ Route::middleware('auth')->group(function(){
     // Cart routes
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('cart/store/{id}', [CartController::class, 'store'])->name('cart.store');
-    Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.remove');
-Route::get('/checkout', [CartController::class, 'index'])->name('checkout.index');
-
- Route::get('esewa/pay/{order}', [EsewaController::class, 'pay'])->name('esewa.pay');
-    Route::get('esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
-    Route::get('/checkout', [EsewaController::class, 'checkout'])->name('checkout');
-    Route::get('esewa/fail', [EsewaController::class, 'fail'])->name('esewa.failure');
-
-
+    Route::put('cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.remove');
+    
+    // Checkout and Payment routes
+    Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('process-payment', [CartController::class, 'processPayment'])->name('process.payment');
+    
+    // eSewa payment routes
+    Route::get('esewa/success', [CartController::class, 'esewaSuccess'])->name('esewa.success');
+    Route::get('esewa/failure', [CartController::class, 'esewaFailure'])->name('esewa.failure');
+    
+    // Order success route
+    Route::get('order/success/{orderId}', [CartController::class, 'orderSuccess'])->name('order.success');
 });
 
 
