@@ -66,13 +66,13 @@
 <div class="mb-8">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-3xl font-bold text-gray-800">Categories Management</h1>
-            <p class="text-gray-600 mt-2">Organize and manage your menu categories</p>
+            <h1 class="text-3xl font-bold text-gray-800">Fooditems Management</h1>
+            <p class="text-gray-600 mt-2">Organize and manage your Fooditems menu</p>
         </div>
         <button id="openModalButton"
             class="modern-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 hover:from-blue-600 hover:to-blue-700 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             <i class="ri-add-line text-xl"></i>
-            <span>Add New Category</span>
+            <span>Add New Fooditem</span>
         </button>
     </div>
 </div>
@@ -121,7 +121,7 @@
     <div class="modal-content p-8 w-full max-w-5xl mx-4 relative">
         <div class="flex items-center justify-between mb-6">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800">Create New Food Item</h2>
+                <h2 class="text-2xl font-bold text-gray-800">Add New Food Item</h2>
                 <p class="text-gray-600 mt-1">Add a delicious new item to your menu</p>
             </div>
             <button id="closeModalButton" class="text-gray-400 hover:text-gray-600 transition-colors">
@@ -219,7 +219,7 @@
                 </button>
                 <button type="submit"
                     class="modern-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 hover:from-blue-600 hover:to-blue-700 shadow-lg">
-                    Create Food Item
+                    Add Food Item
                 </button>
             </div>
         </form>

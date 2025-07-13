@@ -10,8 +10,8 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/',[HomepageController::class, 'index'])->name('home');
-Route::get('about',[HomepageController::class, 'about'])->name('about');
+Route::get('/', [HomepageController::class, 'index'])->name('home');
+Route::get('about',[HomepageController::class, 'about'])->name ('about');
 Route::get('contact',[HomepageController::class, 'contact'])->name('contact');
 Route::get('menu',[HomepageController::class, 'menu'])->name('menu');
 
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function(){
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('cart/store/{id}', [CartController::class, 'store'])->name('cart.store');
     Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{$item}', [CartController::class, 'destroy'])->name('cart.remove');
+Route::delete('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'index'])->name('checkout.index');
 
 

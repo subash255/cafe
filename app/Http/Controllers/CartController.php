@@ -45,13 +45,18 @@ public function store(Request $request , $id)
     return back()->with('success', 'Item added to cart successfully!');
 }
 
-public function destroy($item)
+public function destroy($id)
 {
-    $cartLine = Cart::findOrFail($item);
-
-    abort_unless($cartLine->user_id === Auth::id(), 403);
-
+    $cartLine = Cart::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+  
+    if ($cartLine->user_id !== Auth::id()) {
+        return back()->with('error', 'You are not authorized to remove this item from the cart.');
+    }
     $cartLine->delete();
+   
+   
 
     return back()->with('success', 'Item removed from cart successfully!');
 }
