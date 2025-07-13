@@ -1,6 +1,33 @@
 @extends('layouts.master')
 
 @section('content')
+
+{{-- Enhanced Flash Message --}}
+@if (session('success'))
+<div id="flash-message" class="fixed top-6 right-6 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center">
+    <i class="ri-check-line text-xl mr-2"></i>
+    <span class="font-medium">{{ session('success') }}</span>
+</div>
+@endif
+
+@if (session('error'))
+<div id="flash-message" class="fixed top-6 right-6 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center">
+    <i class="ri-error-warning-line text-xl mr-2"></i>
+    <span class="font-medium">{{ session('error') }}</span>
+</div>
+@endif
+
+<script>
+    if (document.getElementById('flash-message')) {
+        setTimeout(() => {
+            const msg = document.getElementById('flash-message');
+            msg.style.opacity = 0;
+            msg.style.transform = 'translateX(100%)';
+            msg.style.transition = "all 0.5s ease-out";
+            setTimeout(() => msg.remove(), 500);
+        }, 3000);
+    }
+</script>
 <div class="container mx-auto px-4 py-8">
     <h2 class="text-3xl font-bold mb-6">Your Cart</h2>
 
@@ -52,7 +79,7 @@
     </div>
 
     <div class="mt-6">
-        <a href="{{ route('checkout.index') }}" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Proceed to Checkout</a>
+        <a href="{{ route('checkout') }}" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Proceed to Checkout</a>
     </div>
 
     @else

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\FooditemsController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,11 @@ Route::middleware('auth')->group(function(){
     Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'index'])->name('checkout.index');
+
+ Route::get('esewa/pay/{order}', [EsewaController::class, 'pay'])->name('esewa.pay');
+    Route::get('esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
+    Route::get('/checkout', [EsewaController::class, 'checkout'])->name('checkout');
+    Route::get('esewa/fail', [EsewaController::class, 'fail'])->name('esewa.failure');
 
 
 });

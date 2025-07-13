@@ -1,0 +1,1 @@
+<p class="text-red bg-gray-100">fail</p>
