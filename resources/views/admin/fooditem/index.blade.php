@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
+@include('components.admin-table-styles')
+
 <style>
     /* Enhanced Modal Styling */
     .modern-modal {
@@ -66,55 +69,29 @@
 <div class="mb-8">
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-3xl font-bold text-gray-800">Fooditems Management</h1>
-            <p class="text-gray-600 mt-2">Organize and manage your Fooditems menu</p>
+            <h1 class="text-3xl font-bold text-gray-800">Food Items Management</h1>
+            <p class="text-gray-600 mt-2">Organize and manage your menu items</p>
         </div>
         <button id="openModalButton"
             class="modern-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 hover:from-blue-600 hover:to-blue-700 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             <i class="ri-add-line text-xl"></i>
-            <span>Add New Fooditem</span>
+            <span>Add New Food Item</span>
         </button>
     </div>
 </div>
 
-<!-- Enhanced Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-folder-line text-blue-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Total Fooditems</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $fooditems->count() }}</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-eye-line text-green-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Available Fooditems</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $fooditems->where('status', 1)->count() }}</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-restaurant-line text-orange-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Menu Items</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $categories->sum(function($category) { return $category->fooditems->count(); }) }}</p>
-            </div>
-        </div>
+<!-- Search Section -->
+<div class="search-container">
+    <div class="relative">
+        <i class="ri-search-line search-icon"></i>
+        <input type="text" 
+               id="searchInput" 
+               placeholder="Search food items by name, category, or price..." 
+               class="search-input">
     </div>
 </div>
+
+
 
 <!-- Enhanced Modal Structure -->
 <div id="fooditemModal" class="fixed inset-0 modern-modal modal-hidden items-center justify-center z-50">
@@ -227,50 +204,119 @@
 </div>
 
 <!-- Enhanced Table Section -->
-<div class="admin-card rounded-2xl overflow-hidden">
-    <div class="p-6 border-b bg-gradient-to-r from-gray-50 to-white">
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-gray-800">All Fooditems</h3>
-                <p class="text-gray-600 text-sm mt-1">Manage your existing categories</p>
-            </div>
-            <div class="flex items-center space-x-3">
-                <div class="relative">
-                    <i class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Search Fooditems...
-                           class="pl-10 pr-4 py-2  border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-            </div>
+<div class="admin-table-container">
+    <div class="admin-table-inner">
+        <div class="overflow-x-auto">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Food Item</th>
+                        <th>Slug</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="fooditemTableBody">
+                    @forelse ($fooditems as $fooditem)
+                    <tr class="fooditem-row">
+                        <td data-label="S.N">
+                            <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
+                        </td>
+                        <td data-label="Food Item">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mr-4 overflow-hidden">
+                                    @if($fooditem->image)
+                                        <img src="{{ asset('fooditem/' . $fooditem->image) }}" alt="{{ $fooditem->name }}" 
+                                             class="w-full h-full object-cover">
+                                    @else
+                                        <i class="ri-restaurant-line text-white"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900 searchable-name">{{ $fooditem->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ Str::limit($fooditem->description ?? 'No description', 30) }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Slug">
+                            <span class="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1 rounded-lg searchable-slug">{{ $fooditem->slug }}</span>
+                        </td>
+                        <td data-label="Category">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                                    <i class="ri-folder-line text-white text-sm"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900 searchable-category">{{ $fooditem->category->name ?? 'No Category' }}</span>
+                            </div>
+                        </td>
+                        <td data-label="Type">
+                            @if($fooditem->type === 'veg')
+                                <span class="status-badge status-active">
+                                    <i class="ri-leaf-line mr-1"></i>
+                                    Veg
+                                </span>
+                            @else
+                                <span class="status-badge status-pending">
+                                    <i class="ri-restaurant-line mr-1"></i>
+                                    Non-Veg
+                                </span>
+                            @endif
+                        </td>
+                        <td data-label="Price">
+                            <div class="flex items-center">
+                                <span class="text-lg font-bold text-green-600 searchable-price">${{ number_format($fooditem->price, 2) }}</span>
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <label for="status{{ $fooditem->id }}" class="inline-flex items-center cursor-pointer">
+                                <input id="status{{ $fooditem->id }}" type="checkbox" class="hidden toggle-switch" 
+                                       data-id="{{ $fooditem->id }}" {{ $fooditem->status ? 'checked' : '' }} />
+                                <div class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors duration-200 {{ $fooditem->status ? 'bg-gradient-to-r from-green-400 to-green-500' : '' }}">
+                                    <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm {{ $fooditem->status ? 'transform translate-x-6' : '' }}"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium {{ $fooditem->status ? 'text-green-600' : 'text-gray-500' }}">
+                                    {{ $fooditem->status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </label>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="flex items-center space-x-2">
+                                <!-- Edit Button -->
+                                <a href="{{ route('admin.fooditem.edit', ['id' => $fooditem->id]) }}"
+                                   class="action-button btn-edit">
+                                    <i class="ri-edit-line"></i>
+                                </a>
+                                
+                                <!-- Delete Button -->
+                                <form action="{{ route('admin.fooditem.delete', ['id' => $fooditem->id]) }}" method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this food item?');" class="inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="action-button btn-delete">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" class="no-data">
+                            <i class="ri-restaurant-line"></i>
+                            <p class="text-lg font-medium">No food items found</p>
+                            <p class="text-sm">Start by adding your first delicious menu item</p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    <div class="overflow-x-auto">
-        <table id="fooditemTable" class="modern-table w-full">
-            <thead>
-                <tr>
-                    <th class="text-left px-6 py-3">S.N</th>
-                    <th class="text-left px-6 py-3">Food Item</th>
-                    <th class ="text-left px-6 py-3">Slug</th>
-                    <th class="text-left px-6 py-3">Category</th>
-                    <th class="text-left px-6 py-3">Type</th>
-                    <th class="text-left px-6 py-3">Price</th>
-                    <th class="text-left px-6 py-3">Status</th>
-                    <th class="text-left px-6 py-3">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($fooditems as $fooditem)
-                <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4">
-                        <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
-                    </td>
-                     <td class="px-6 py-4">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4 overflow-hidden">
-                                @if($fooditem->image)
-                                    <img src="{{ asset('fooditem/' . $fooditem->image) }}" alt="{{ $fooditem->name }}" 
-                                         class="w-full h-full object-cover">
-                                @else
+</div>
                                     <i class="ri-restaurant-line text-gray-400 text-2xl"></i>
                                 @endif
                             </div>
@@ -336,6 +382,26 @@
 </div>
 
 <script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.fooditem-row');
+        
+        rows.forEach(row => {
+            const name = row.querySelector('.searchable-name').textContent.toLowerCase();
+            const slug = row.querySelector('.searchable-slug').textContent.toLowerCase();
+            const category = row.querySelector('.searchable-category').textContent.toLowerCase();
+            const price = row.querySelector('.searchable-price').textContent.toLowerCase();
+            
+            const isVisible = name.includes(searchTerm) || 
+                            slug.includes(searchTerm) || 
+                            category.includes(searchTerm) || 
+                            price.includes(searchTerm);
+            
+            row.style.display = isVisible ? '' : 'none';
+        });
+    });
+
     // Enhanced Modal functionality
     function generateSlug() {
         let input1 = document.getElementById('fooditem').value;

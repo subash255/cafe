@@ -5,24 +5,7 @@
 @section('content')
 <div class="min-h-screen bg-gray-50 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Welcome Header -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <img src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=6366f1&color=ffffff' }}"
-                        alt="{{ Auth::user()->name }}"
-                        class="h-16 w-16 rounded-full object-cover border-2 border-gray-300" />
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900">Welcome back, {{ Auth::user()->name }}!</h1>
-                        <p class="text-gray-600">Here's what's happening with your account</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="text-sm text-gray-500">Member since</p>
-                    <p class="font-medium text-gray-900">{{ Auth::user()->created_at->format('M Y') }}</p>
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Dashboard Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -34,7 +17,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Total Orders</p>
-                        <p class="text-2xl font-semibold text-gray-900">0</p>
+                        <p class="text-2xl font-semibold text-gray-900">{{ $totalOrders }}</p>
                     </div>
                 </div>
             </div>
@@ -46,7 +29,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-500">Reservations</p>
-                        <p class="text-2xl font-semibold text-gray-900">0</p>
+                        <p class="text-2xl font-semibold text-gray-900">{{ $totalReservations }}</p>
                     </div>
                 </div>
             </div>
@@ -81,11 +64,66 @@
             <!-- Recent Activity -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-                <div class="text-center py-8">
-                    <i class="ri-file-list-line text-4xl text-gray-400 mb-4"></i>
-                    <p class="text-gray-500">No recent activity to show</p>
-                    <p class="text-sm text-gray-400 mt-2">Start by placing an order or making a reservation!</p>
-                </div>
+                
+                @if($recentOrders->count() > 0 || $recentReservations->count() > 0)
+                    <div class="space-y-4 max-h-96 overflow-y-auto">
+                        @foreach($recentOrders as $order)
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-gray-900">Order #{{ $order->id }}</p>
+                                        <p class="text-sm text-gray-600">
+                                            {{ $order->orderItems->count() }} item(s) - ${{ number_format($order->total_amount, 2) }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">{{ $order->created_at->diffForHumans() }}</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full
+                                        @if($order->payment_status === 'paid') bg-green-100 text-green-800
+                                        @elseif($order->payment_status === 'pending') bg-yellow-100 text-yellow-800
+                                        @else bg-red-100 text-red-800
+                                        @endif">
+                                        {{ ucfirst($order->payment_status) }}
+                                    </span>
+                                </div>
+                                @if($order->orderItems->count() > 0)
+                                    <div class="mt-2">
+                                        <p class="text-xs text-gray-500">Items: 
+                                            @foreach($order->orderItems->take(3) as $item)
+                                                {{ $item->fooditem->name ?? 'Unknown Item' }}@if(!$loop->last), @endif
+                                            @endforeach
+                                            @if($order->orderItems->count() > 3)
+                                                and {{ $order->orderItems->count() - 3 }} more
+                                            @endif
+                                        </p>
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                        
+                        @foreach($recentReservations as $reservation)
+                            <div class="border-l-4 border-green-500 pl-4 py-2">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium text-gray-900">Reservation #{{ $reservation->id }}</p>
+                                        <p class="text-sm text-gray-600">
+                                            {{ $reservation->people }} guest(s) - {{ \Carbon\Carbon::parse($reservation->date)->format('M j, Y') }} at {{ \Carbon\Carbon::parse($reservation->time)->format('g:i A') }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">{{ $reservation->created_at->diffForHumans() }}</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                        Confirmed
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-center py-8">
+                        <i class="ri-file-list-line text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">No recent activity to show</p>
+                        <p class="text-sm text-gray-400 mt-2">Start by placing an order or making a reservation!</p>
+                    </div>
+                @endif
             </div>
 
             <!-- Quick Actions -->

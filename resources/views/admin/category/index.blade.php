@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
+@include('components.admin-table-styles')
+
 <style>
     /* Enhanced Modal Styling */
     .modern-modal {
@@ -77,44 +80,17 @@
     </div>
 </div>
 
-<!-- Enhanced Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-folder-line text-blue-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Total Categories</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $categories->count() }}</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-eye-line text-green-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Available Categories</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $categories->where('status', 1)->count() }}</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="admin-card rounded-2xl p-6">
-        <div class="flex items-center">
-            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-4">
-                <i class="ri-restaurant-line text-orange-600 text-xl"></i>
-            </div>
-            <div>
-                <p class="text-gray-600 text-sm">Menu Items</p>
-                <p class="text-2xl font-bold text-gray-800">{{ $categories->sum(function($category) { return $category->fooditems->count(); }) }}</p>
-            </div>
-        </div>
+<!-- Search Section -->
+<div class="search-container">
+    <div class="relative">
+        <i class="ri-search-line search-icon"></i>
+        <input type="text" 
+               id="searchInput" 
+               placeholder="Search categories by name or slug..." 
+               class="search-input">
     </div>
 </div>
+
 
 <!-- Enhanced Modal Structure -->
 <div id="categoryModal" class="fixed inset-0 modern-modal modal-hidden items-center justify-center z-50">
@@ -173,101 +149,112 @@
 </div>
 
 <!-- Enhanced Table Section -->
-<div class="admin-card rounded-2xl overflow-hidden">
-    <div class="p-6 border-b bg-gradient-to-r from-gray-50 to-white">
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-gray-800">All Categories</h3>
-                <p class="text-gray-600 text-sm mt-1">Manage your existing categories</p>
-            </div>
-            <div class="flex items-center space-x-3">
-                <div class="relative">
-                    <i class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Search categories..." 
-                           class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-            </div>
+<div class="admin-table-container">
+    <div class="admin-table-inner">
+        <div class="overflow-x-auto">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Category Name</th>
+                        <th>Slug</th>
+                        <th>Items Count</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="categoryTableBody">
+                    @forelse ($categories as $category)
+                    <tr class="category-row">
+                        <td data-label="S.N">
+                            <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
+                        </td>
+                        <td data-label="Category Name">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="ri-folder-line text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900 searchable-name">{{ $category->name }}</p>
+                                    <p class="text-xs text-gray-500">Created {{ $category->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Slug">
+                            <span class="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1 rounded-lg searchable-slug">{{ $category->slug }}</span>
+                        </td>
+                        <td data-label="Items Count">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mr-2">
+                                    <i class="ri-restaurant-line text-white text-sm"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-900">{{ $category->fooditems->count() }}</span>
+                                <span class="text-xs text-gray-500 ml-1">items</span>
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <label for="status{{ $category->id }}" class="inline-flex items-center cursor-pointer">
+                                <input id="status{{ $category->id }}" type="checkbox" class="hidden toggle-switch" 
+                                       data-id="{{ $category->id }}" {{ $category->status ? 'checked' : '' }} />
+                                <div class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors duration-200 {{ $category->status ? 'bg-gradient-to-r from-green-400 to-green-500' : '' }}">
+                                    <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm {{ $category->status ? 'transform translate-x-6' : '' }}"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium {{ $category->status ? 'text-green-600' : 'text-gray-500' }}">
+                                    {{ $category->status ? 'Active' : 'Inactive' }}
+                                </span>
+                            </label>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="flex items-center space-x-2">
+                                <!-- Edit Button -->
+                                <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
+                                   class="action-button btn-edit">
+                                    <i class="ri-edit-line"></i>
+                                </a>
+                                
+                                <!-- Delete Button -->
+                                <form action="{{ route('admin.category.delete', ['id' => $category->id]) }}" method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this category?');" class="inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="action-button btn-delete">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="no-data">
+                            <i class="ri-folder-line"></i>
+                            <p class="text-lg font-medium">No categories found</p>
+                            <p class="text-sm">Start by creating your first category to organize your menu</p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    </div>
-    
-    <div class="overflow-x-auto">
-        <table id="categoryTable" class="modern-table w-full">
-            <thead>
-                <tr>
-                    <th class="text-left">S.N</th>
-                    <th class="text-left">Category Name</th>
-                    <th class="text-left">Slug</th>
-                    <th class="text-left">Items Count</th>
-                    <th class="text-left">Status</th>
-                    <th class="text-left">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $category)
-                <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4">
-                        <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
-                                <i class="ri-folder-line text-gray-600"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{{ $category->name }}</p>
-                                <p class="text-xs text-gray-500">Created {{ $category->created_at->diffForHumans() }}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-lg">{{ $category->slug }}</span>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center">
-                            <span class="text-sm font-semibold text-gray-900">{{ $category->fooditems->count() }}</span>
-                            <span class="text-xs text-gray-500 ml-1">items</span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <label for="status{{ $category->id }}" class="inline-flex items-center cursor-pointer">
-                            <input id="status{{ $category->id }}" type="checkbox" class="hidden toggle-switch" 
-                                   data-id="{{ $category->id }}" {{ $category->status ? 'checked' : '' }} />
-                            <div class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors duration-200 {{ $category->status ? 'bg-blue-500' : '' }}">
-                                <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 {{ $category->status ? 'transform translate-x-6' : '' }}"></div>
-                            </div>
-                            <span class="ml-2 text-sm {{ $category->status ? 'text-green-600' : 'text-gray-500' }}">
-                                {{ $category->status ? 'Active' : 'Inactive' }}
-                            </span>
-                        </label>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center space-x-2">
-                            <!-- Edit Button -->
-                            <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
-                               class="w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors group">
-                                <i class="ri-edit-line text-blue-600 group-hover:text-blue-700"></i>
-                            </a>
-                            
-                            <!-- Delete Button -->
-                            <form action="{{ route('admin.category.delete', ['id' => $category->id]) }}" method="post"
-                                  onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                @csrf
-                                @method('delete')
-                                <button type="submit"
-                                        class="w-8 h-8 bg-red-100 hover:bg-red-200 rounded-lg flex items-center justify-center transition-colors group">
-                                    <i class="ri-delete-bin-line text-red-600 group-hover:text-red-700"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
 </div>
 
 <script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.category-row');
+        
+        rows.forEach(row => {
+            const name = row.querySelector('.searchable-name').textContent.toLowerCase();
+            const slug = row.querySelector('.searchable-slug').textContent.toLowerCase();
+            
+            const isVisible = name.includes(searchTerm) || slug.includes(searchTerm);
+            
+            row.style.display = isVisible ? '' : 'none';
+        });
+    });
+
     // Enhanced Modal functionality
     function generateSlug() {
         let input1 = document.getElementById('category').value;
@@ -325,7 +312,7 @@
             
             // Update UI immediately
             if (this.checked) {
-                toggleContainer.classList.add('bg-blue-500');
+                toggleContainer.classList.add('bg-gradient-to-r', 'from-green-400', 'to-green-500');
                 toggleContainer.classList.remove('bg-gray-200');
                 toggleContainer.querySelector('div').classList.add('transform', 'translate-x-6');
                 statusText.textContent = 'Active';
