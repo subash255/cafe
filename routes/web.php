@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\FooditemsController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
