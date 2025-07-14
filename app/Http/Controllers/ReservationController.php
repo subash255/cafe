@@ -34,4 +34,20 @@ class ReservationController extends Controller
         Reservation::destroy($id);
         return redirect()->back()->with('success','Reservation deleted successfully');
     }
+
+    public function accept($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update(['status' => 'confirmed']);
+        
+        return redirect()->back()->with('success', 'Reservation confirmed successfully!');
+    }
+
+    public function reject($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update(['status' => 'cancelled']);
+        
+        return redirect()->back()->with('success', 'Reservation cancelled successfully!');
+    }
 }

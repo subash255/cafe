@@ -10,7 +10,7 @@
     .admin-table-inner {
         background: white;
         border-radius: 18px;
-        overflow: hidden;
+        overflow: visible;
     }
     
     .table-header {
@@ -50,6 +50,8 @@
         border-bottom: 1px solid #f3f4f6;
         background: white;
         transition: all 0.3s ease;
+        overflow: visible;
+        position: relative;
     }
     
     .modern-table tbody tr:hover td {
@@ -273,13 +275,13 @@
             color: #374151;
         }
         
-        .modern-table tbody tr {
-            display: block;
-            margin-bottom: 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            overflow: hidden;
-        }
+    .modern-table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: visible;
+    }
     }
     
     @media (min-width: 769px) and (max-width: 1024px) {

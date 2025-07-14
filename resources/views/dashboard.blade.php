@@ -73,16 +73,25 @@
                                     <div>
                                         <p class="font-medium text-gray-900">Order #{{ $order->id }}</p>
                                         <p class="text-sm text-gray-600">
-                                            {{ $order->orderItems->count() }} item(s) - ${{ number_format($order->total_amount, 2) }}
+                                            {{ $order->orderItems->count() }} item(s) - Rs. {{ number_format($order->total_amount, 2) }}
                                         </p>
                                         <p class="text-xs text-gray-500">{{ $order->created_at->diffForHumans() }}</p>
                                     </div>
                                     <span class="px-2 py-1 text-xs font-medium rounded-full
-                                        @if($order->payment_status === 'paid') bg-green-100 text-green-800
-                                        @elseif($order->payment_status === 'pending') bg-yellow-100 text-yellow-800
-                                        @else bg-red-100 text-red-800
+                                        @if($order->order_status === 'delivered') bg-green-100 text-green-800
+                                        @elseif($order->order_status === 'processing') bg-blue-100 text-blue-800
+                                        @elseif($order->order_status === 'cancelled') bg-red-100 text-red-800
+                                        @else bg-yellow-100 text-yellow-800
                                         @endif">
-                                        {{ ucfirst($order->payment_status) }}
+                                        @if($order->order_status === 'delivered')
+                                            <i class="ri-check-line mr-1"></i>Delivered
+                                        @elseif($order->order_status === 'processing')
+                                            <i class="ri-truck-line mr-1"></i>Processing
+                                        @elseif($order->order_status === 'cancelled')
+                                            <i class="ri-close-line mr-1"></i>Cancelled
+                                        @else
+                                            <i class="ri-time-line mr-1"></i>Pending
+                                        @endif
                                     </span>
                                 </div>
                                 @if($order->orderItems->count() > 0)
@@ -101,7 +110,7 @@
                         @endforeach
                         
                         @foreach($recentReservations as $reservation)
-                            <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <div class="border-l-4 border-yellow-500 pl-4 py-2">
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <p class="font-medium text-gray-900">Reservation #{{ $reservation->id }}</p>
@@ -110,10 +119,33 @@
                                         </p>
                                         <p class="text-xs text-gray-500">{{ $reservation->created_at->diffForHumans() }}</p>
                                     </div>
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                        Confirmed
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full
+                                        @if($reservation->status === 'confirmed') bg-green-100 text-green-800
+                                        @elseif($reservation->status === 'cancelled') bg-red-100 text-red-800
+                                        @else bg-yellow-100 text-yellow-800
+                                        @endif">
+                                        @if($reservation->status === 'confirmed')
+                                            <i class="ri-check-line mr-1"></i>Confirmed
+                                        @elseif($reservation->status === 'cancelled')
+                                            <i class="ri-close-line mr-1"></i>Cancelled
+                                        @else
+                                            <i class="ri-time-line mr-1"></i>Pending
+                                        @endif
                                     </span>
                                 </div>
+                                @if($reservation->status === 'confirmed')
+                                    <div class="mt-2">
+                                        <p class="text-xs text-green-600">✓ Your table has been confirmed!</p>
+                                    </div>
+                                @elseif($reservation->status === 'cancelled')
+                                    <div class="mt-2">
+                                        <p class="text-xs text-red-600">✗ This reservation was cancelled</p>
+                                    </div>
+                                @else
+                                    <div class="mt-2">
+                                        <p class="text-xs text-yellow-600">⏳ Waiting for confirmation</p>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>

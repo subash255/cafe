@@ -60,7 +60,6 @@
                         <th>S.N</th>
                         <th>Customer</th>
                         <th>Contact</th>
-                        <th>Date & Time</th>
                         <th>Guests</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -95,23 +94,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td data-label="Date & Time">
-                            <div class="space-y-1">
-                                <div class="flex items-center text-sm font-medium text-gray-900">
-                                    <i class="ri-calendar-line mr-2 text-blue-500"></i>
-                                    <span class="searchable-date">{{ \Carbon\Carbon::parse($reservation->date)->format('M d, Y') }}</span>
-                                </div>
-                                <div class="flex items-center text-sm text-gray-600">
-                                    <i class="ri-time-line mr-2 text-green-500"></i>
-                                    {{ \Carbon\Carbon::parse($reservation->time)->format('h:i A') }}
-                                </div>
-                            </div>
-                        </td>
+                        
                         <td data-label="Guests">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 bg-gradient-to-r from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mr-2">
-                                    <i class="ri-group-line text-white text-sm"></i>
-                                </div>
+                                
                                 <span class="text-sm font-semibold text-gray-900">{{ $reservation->people }}</span>
                                 <span class="text-xs text-gray-500 ml-1">{{ $reservation->people == 1 ? 'guest' : 'guests' }}</span>
                             </div>
@@ -124,20 +110,20 @@
                                 $isToday = $reservationDateTime->isToday();
                             @endphp
                             
-                            @if($isPast && !$isToday)
-                                <span class="status-badge status-inactive">
+                            @if($reservation->status === 'confirmed')
+                                <span class="status-badge status-active">
                                     <i class="ri-check-line mr-1"></i>
-                                    Completed
+                                    Confirmed
                                 </span>
-                            @elseif($isToday)
+                            @elseif($reservation->status === 'cancelled')
+                                <span class="status-badge status-inactive">
+                                    <i class="ri-close-line mr-1"></i>
+                                    Cancelled
+                                </span>
+                            @elseif($reservation->status === 'pending')
                                 <span class="status-badge status-pending">
                                     <i class="ri-time-line mr-1"></i>
-                                    Today
-                                </span>
-                            @else
-                                <span class="status-badge status-active">
-                                    <i class="ri-calendar-check-line mr-1"></i>
-                                    Upcoming
+                                    Pending
                                 </span>
                             @endif
                         </td>
@@ -145,7 +131,7 @@
                             <div class="flex items-center space-x-2">
                                 <!-- View Details Button -->
                                 <button class="action-button btn-view"
-                                        onclick="viewReservationDetails('{{ $reservation->id }}', '{{ $reservation->name }}', '{{ $reservation->email }}', '{{ $reservation->phone }}', '{{ $reservation->date }}', '{{ $reservation->time }}', '{{ $reservation->people }}')">
+                                        onclick="viewReservationDetails('{{ $reservation->id }}', '{{ $reservation->name }}', '{{ $reservation->email }}', '{{ $reservation->phone }}', '{{ $reservation->date }}', '{{ $reservation->time }}', '{{ $reservation->people }}', '{{ $reservation->status }}')">
                                     <i class="ri-eye-line"></i>
                                 </button>
                                 
@@ -177,29 +163,47 @@
 </div>
 
 <!-- Reservation Details Modal -->
-<div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-2xl p-8 w-full max-w-lg mx-4 relative shadow-2xl">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Reservation Details</h2>
-            <button onclick="closeReservationModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
+<div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative shadow-2xl">
+        <div class="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-gray-800">Reservation Details</h2>
+                <button onclick="closeReservationModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
         </div>
         
-        <div id="reservationDetails" class="space-y-4">
-            <!-- Details will be populated by JavaScript -->
-        </div>
-        
-        <div class="flex justify-end space-x-3 mt-8 pt-6 border-t">
-            <button onclick="closeReservationModal()" 
-                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                Close
-            </button>
+        <div class="p-6">
+            <div id="reservationDetails" class="space-y-4 mb-6">
+                <!-- Details will be populated by JavaScript -->
+            </div>
+            
+            <div class="flex justify-between items-center pt-6 border-t">
+                <div class="flex space-x-3">
+                    <button id="acceptBtn" onclick="updateReservationStatus('accept')" 
+                            class="px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all flex items-center">
+                        <i class="ri-check-line mr-2"></i>
+                        Accept
+                    </button>
+                    <button id="rejectBtn" onclick="updateReservationStatus('reject')" 
+                            class="px-6 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all flex items-center">
+                        <i class="ri-close-line mr-2"></i>
+                        Reject
+                    </button>
+                </div>
+                <button onclick="closeReservationModal()" 
+                        class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                    Close
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+    let currentReservationId = null;
+
     // Search functionality
     document.getElementById('searchInput').addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
@@ -220,9 +224,12 @@
         });
     });
 
-    function viewReservationDetails(id, name, email, phone, date, time, people) {
+    function viewReservationDetails(id, name, email, phone, date, time, people, status) {
+        currentReservationId = id;
         const modal = document.getElementById('reservationModal');
         const detailsContainer = document.getElementById('reservationDetails');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const rejectBtn = document.getElementById('rejectBtn');
         
         const formattedDate = new Date(date).toLocaleDateString('en-US', {
             weekday: 'long',
@@ -236,24 +243,51 @@
             minute: '2-digit',
             hour12: true
         });
+
+        // Show/hide buttons based on status
+        if (status === 'confirmed') {
+            acceptBtn.style.display = 'none';
+            rejectBtn.innerHTML = '<i class="ri-close-line mr-2"></i>Cancel';
+        } else if (status === 'cancelled') {
+            acceptBtn.innerHTML = '<i class="ri-refresh-line mr-2"></i>Restore';
+            rejectBtn.style.display = 'none';
+        } else {
+            acceptBtn.style.display = 'inline-flex';
+            rejectBtn.style.display = 'inline-flex';
+            acceptBtn.innerHTML = '<i class="ri-check-line mr-2"></i>Accept';
+            rejectBtn.innerHTML = '<i class="ri-close-line mr-2"></i>Reject';
+        }
+        
+        // Get status badge HTML
+        let statusBadge = '';
+        if (status === 'confirmed') {
+            statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"><i class="ri-check-line mr-1"></i>Confirmed</span>';
+        } else if (status === 'cancelled') {
+            statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"><i class="ri-close-line mr-1"></i>Cancelled</span>';
+        } else {
+            statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"><i class="ri-time-line mr-1"></i>Pending</span>';
+        }
         
         detailsContainer.innerHTML = `
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4">
-                    <div class="flex items-center mb-2">
-                        <i class="ri-user-3-line text-blue-500 mr-2"></i>
-                        <span class="font-semibold text-gray-700">Customer Name</span>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <i class="ri-user-3-line text-blue-500 mr-2"></i>
+                            <span class="font-semibold text-gray-700">Customer Name</span>
+                        </div>
+                        ${statusBadge}
                     </div>
                     <p class="text-gray-900 font-medium">${name}</p>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4">
                         <div class="flex items-center mb-2">
                             <i class="ri-mail-line text-green-500 mr-2"></i>
                             <span class="font-semibold text-gray-700">Email</span>
                         </div>
-                        <p class="text-gray-900 text-sm">${email}</p>
+                        <p class="text-gray-900 text-sm break-all">${email}</p>
                     </div>
                     
                     <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
@@ -265,7 +299,7 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4">
                         <div class="flex items-center mb-2">
                             <i class="ri-calendar-line text-orange-500 mr-2"></i>
@@ -295,13 +329,51 @@
         
         modal.classList.remove('hidden');
         modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
     }
     
     function closeReservationModal() {
         const modal = document.getElementById('reservationModal');
         modal.classList.add('hidden');
         modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+        currentReservationId = null;
     }
+
+    function updateReservationStatus(action) {
+        if (!currentReservationId) return;
+        
+        const actionButton = document.getElementById(action === 'accept' ? 'acceptBtn' : 'rejectBtn');
+        const originalContent = actionButton.innerHTML;
+        
+        // Show loading state
+        actionButton.innerHTML = `<i class="ri-loader-4-line animate-spin mr-2"></i>${action === 'accept' ? 'Accepting...' : 'Rejecting...'}`;
+        actionButton.disabled = true;
+        
+        // Create form and submit
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/reservation/${currentReservationId}/${action}`;
+        
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+        if (csrfToken) {
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken.getAttribute('content');
+            form.appendChild(csrfInput);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('reservationModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeReservationModal();
+        }
+    });
 </script>
 
 @endsection

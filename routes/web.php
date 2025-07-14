@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FooditemsController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     //Reservation routes
     Route::get('admin/reservation',[ReservationController::class, 'index'])->name('admin.reservation.index');
     Route::delete('admin/reservation/{id}',[ReservationController::class, 'destroy'])->name('admin.reservation.delete');
+    Route::post('admin/reservation/{id}/accept',[ReservationController::class, 'accept'])->name('admin.reservation.accept');
+    Route::post('admin/reservation/{id}/reject',[ReservationController::class, 'reject'])->name('admin.reservation.reject');
+
+    //Order routes
+    Route::get('admin/order',[OrderController::class, 'index'])->name('admin.order.index');
+    Route::get('admin/order/{id}',[OrderController::class, 'show'])->name('admin.order.show');
+    Route::post('admin/order/{id}/update-status',[OrderController::class, 'updateStatus'])->name('admin.order.updateStatus');
+    Route::post('admin/order/{id}/update-payment-status',[OrderController::class, 'updatePaymentStatus'])->name('admin.order.updatePaymentStatus');
+    Route::delete('admin/order/{id}',[OrderController::class, 'destroy'])->name('admin.order.delete');
+    Route::get('admin/order/{id}/print',[OrderController::class, 'print'])->name('admin.order.print');
+    Route::get('admin/order-stats',[OrderController::class, 'getOrderStats'])->name('admin.order.stats');
 
 });
 

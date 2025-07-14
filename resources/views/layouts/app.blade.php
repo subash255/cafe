@@ -312,13 +312,24 @@
                 </a>
 
                 <a href="{{route('admin.reservation.index')}}"
-                    class="sidebar-link flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('admin.booking.index') ? 'active' : 'hover:bg-white/10' }} transition-all duration-200 group">
+                    class="sidebar-link flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('admin.reservation.index') ? 'active' : 'hover:bg-white/10' }} transition-all duration-200 group">
                     <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 group-hover:bg-purple-500/30 transition-colors">
                         <i class="ri-calendar-check-line text-lg"></i>
                     </div>
                     <div class="flex-1">
                         <span class="font-semibold text-sm">Reservations</span>
                         <p class="text-xs text-gray-300 mt-0.5">Table Bookings</p>
+                    </div>
+                </a>
+
+                <a href="{{route('admin.order.index')}}"
+                    class="sidebar-link flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('admin.order.*') ? 'active' : 'hover:bg-white/10' }} transition-all duration-200 group">
+                    <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
+                        <i class="ri-shopping-cart-line text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <span class="font-semibold text-sm">Orders</span>
+                        <p class="text-xs text-gray-300 mt-0.5">Customer Orders</p>
                     </div>
                 </a>
             </nav>
