@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fooditems;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -29,9 +30,10 @@ class HomepageController extends Controller
 
     public function menu()
     {
-        $menus = Fooditems::all();
+        $menus = Fooditems::with('category')->get();
+        $categories = Category::all();
         $popularItems = Fooditems::popular()->limit(8)->get(); // Use scope for popular items
-        return view('menu', compact('menus', 'popularItems'));
+        return view('menu', compact('menus', 'categories', 'popularItems'));
     }
 
     public function dashboard()

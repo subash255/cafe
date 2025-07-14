@@ -162,105 +162,111 @@
 
 
     <!-- Reservation Section -->
-    <div id="tablereservation"
-        style="background-image: linear-gradient(rgba(17, 17, 17, 0.96), rgba(23, 16, 7, 0.89)), url('images/reserve.jpg');"
-        class="bg-cover bg-center overflow-hidden reserve">
-        <div class="xl:px-12 py-16 lg:px-8 sm:px-5 px-3">
-            <div class="2xl:max-w-[1600px] xl:max-w-[1280px] w-full mx-auto">
-                <div class="text-center">
-                    <h3 class="sm:text-3xl text-xl text-secondary font-bold">
-                        Online Table Reservation
-                    </h3>
+<div id="tablereservation"
+    style="background-image: linear-gradient(rgba(17, 17, 17, 0.96), rgba(23, 16, 7, 0.89)), url('images/reserve.jpg');"
+    class="bg-cover bg-center overflow-hidden reserve">
+    <div class="xl:px-12 py-16 lg:px-8 sm:px-5 px-3">
+        <div class="2xl:max-w-[1600px] xl:max-w-[1280px] w-full mx-auto">
+            <div class="text-center">
+                <h3 class="sm:text-3xl text-xl text-secondary font-bold">
+                    Online Table Reservation
+                </h3>
+            </div>
+
+            <!-- Show validation errors -->
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 mt-8">
+                    <ul class="list-disc pl-5 text-left">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="mt-10">
-                    <form action="{{route('reservation.store')}}" autocomplete="off" method="POST">
-                        @csrf
-                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12">
-                            <div>
-                                <label for="name" class="relative">
-                                    <input type="text" placeholder="Name" name="name"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-user-3-line"></i>
-                                    </span>
-                                </label>
-                            </div>
+            @endif
 
+        
 
-                            <div>
-                                <label for="email" class="relative">
-                                    <input type="email" placeholder="Enter email" name="email"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-mail-line"></i>
-                                    </span>
-                                </label>
-                            </div>
-
-                           
+            <div class="mt-10">
+                <form action="{{ route('reservation.store') }}" autocomplete="off" method="POST">
+                    @csrf
+                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12">
+                        <div>
+                            <label for="name" class="relative">
+                                <input type="text" placeholder="Name" name="name" value="{{ old('name') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-user-3-line"></i>
+                                </span>
+                            </label>
                         </div>
 
-                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
-                             <div>
-                                <label for="phone" class="relative">
-                                    <input type="text" placeholder="Phone" name="phone"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-phone-line"></i>
-                                    </span>
-                                </label>
-                            </div>
+                        <div>
+                            <label for="email" class="relative">
+                                <input type="email" placeholder="Enter email" name="email" value="{{ old('email') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-mail-line"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
 
-                            <div>
-                                <label for="people" class="relative">
-                                    <input type="text" placeholder="No. of People" name="people"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-group-line"></i>
-                                    </span>
-                                </label>
-                            </div>
-
-                            
+                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
+                        <div>
+                            <label for="phone" class="relative">
+                                <input type="text" placeholder="Phone" name="phone" value="{{ old('phone') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-phone-line"></i>
+                                </span>
+                            </label>
                         </div>
 
-                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
-                            <div>
-                                <label for="date" class="relative">
-                                    <input type="date" placeholder="yyyy/mm/dd" name="date"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-calendar-line"></i>
-                                    </span>
-                                </label>
-                            </div>
+                        <div>
+                            <label for="people" class="relative">
+                                <input type="text" placeholder="No. of People" name="people" value="{{ old('people') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-group-line"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
 
-                            <div>
-                                <label for="time" class="relative">
-                                    <input type="time" placeholder="Enter Time" name="time"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-time-line"></i>
-                                    </span>
-                                </label>
-                            </div>
-
-
-                            
+                    <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
+                        <div>
+                            <label for="date" class="relative">
+                                <input type="date" placeholder="yyyy/mm/dd" name="date" value="{{ old('date') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-calendar-line"></i>
+                                </span>
+                            </label>
                         </div>
 
-                        <div class="mt-12 text-center">
-                            <button type="submit"
-                                class="py-3 px-12 text-tertiary rounded-full text-xl font-semibold bg-secondary hover:bg-primary">
-                                <span class="relative z-10">Reserve Now</span>
-                            </button>
-
+                        <div>
+                            <label for="time" class="relative">
+                                <input type="time" placeholder="Select Time" name="time" value="{{ old('time') }}"
+                                    class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                    <i class="ri-time-line"></i>
+                                </span>
+                            </label>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <button type="submit"
+                            class="py-3 px-12 text-tertiary rounded-full text-xl font-semibold bg-secondary hover:bg-primary">
+                            <span class="relative z-10">Reserve Now</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Testimonial Section -->
     <section class="bg-gray-50 py-16 xl:px-12 lg:px-8 sm:px-5 px-3">
