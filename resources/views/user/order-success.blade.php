@@ -9,7 +9,7 @@
             <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
                 <i class="ri-check-line text-4xl text-green-600"></i>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Order Confirmed!</h1>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Your Order is Confirmed!</h1>
             <p class="text-gray-600">Thank you for your order. We'll prepare it with care.</p>
         </div>
 
