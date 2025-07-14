@@ -301,7 +301,7 @@
                 </a>
                 
                 <a href="{{route('admin.fooditem.index')}}"
-                    class="sidebar-link flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('admin.fooditems.index', 'admin.fooditems.edit') ? 'active' : 'hover:bg-white/10' }} transition-all duration-200 group">
+                    class="sidebar-link flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('admin.fooditem.index', 'admin.fooditems.edit') ? 'active' : 'hover:bg-white/10' }} transition-all duration-200 group">
                     <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
                         <i class="ri-restaurant-line text-lg"></i>
                     </div>

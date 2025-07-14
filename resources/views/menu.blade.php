@@ -52,6 +52,8 @@
             <p class="text-gray-600 max-w-2xl mx-auto text-lg">From expertly brewed coffees to delectable pastries, every item is made with passion and the finest ingredients</p>
         </div>
 
+        
+
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Enhanced Sidebar (Search + Filters) -->
             <aside class="w-full lg:w-1/4 space-y-6">
@@ -195,9 +197,13 @@
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="relative overflow-hidden">
                             <img src="{{ asset('fooditem/' . $menu->image) }}" alt="{{ $menu->name }}"  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                            @if($menu->status == 1)
                             <div class="absolute top-4 left-4">
-                                <span class="bg-secondary text-white px-3 py-1 rounded-full text-xs font-medium">Popular</span>
+                                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                                    <i class="ri-fire-line mr-1"></i>Popular
+                                </span>
                             </div>
+                            @endif
                             <div class="absolute top-4 right-4">
                                 <button class="bg-white/90 backdrop-blur-sm text-gray-600 hover:text-red-500 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
                                     <i class="ri-heart-line"></i>

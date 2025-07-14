@@ -36,18 +36,30 @@
                     and drinks. <br class="lg:block hidden"> Come in, unwind, and enjoy the perfect blend of flavors,
                     comfort, and good company.
                 </p>
-                <div class="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                    <a href="{{ route('menu') }}" class="rounded-md overflow-hidden">
-                        <button class="rounded-md overflow-hidden">
-                            <div class="bg-secondary hover:bg-primary py-2 px-8 relative">
-                                <div class="flex items-center gap-x-3 relative z-20">
-                                    <i class="text-xl"></i>
-                                    <span class="text-lg font-bold">Order Now!</span>
-                                </div>
-                            </div>
-                        </button>
-                    </a>
-                </div>
+                <div class="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-4">
+
+    <!-- Order Now Button -->
+    <a href="{{ route('menu') }}" class="group">
+        <button class="relative bg-gradient-to-r from-red-500 to-red-800 hover:from-orange-800 hover:to-red-600 text-white py-2 px-8 rounded-full shadow-lg transition-all duration-300 transform group-hover:scale-105">
+            <div class="flex items-center gap-x-2">
+                <i class="fas fa-utensils text-xl"></i>
+                <span class="text-lg font-semibold tracking-wide">Order Now!</span>
+            </div>
+        </button>
+    </a>
+
+    <!-- Book Table Button -->
+    <a href="{{ route('home') }}#reservation" class="group">
+        <button class="relative bg-primary text-white hover:bg-secondary hover:text-white py-2 px-8 rounded-md shadow-md transition-all duration-300 transform group-hover:scale-105">
+            <div class="flex items-center gap-x-2">
+                <i class="fas fa-calendar-check text-xl"></i>
+                <span class="text-lg font-semibold tracking-wide">Book Table!</span>
+            </div>
+        </button>
+    </a>
+
+</div>
+
             </div>
         </div>
     </div>
@@ -91,7 +103,7 @@
 <section class="bg-gray-50 py-10 xl:px-12 lg:px-8 sm:px-5 px-3">
     <div class="xl:max-w-7xl w-full mx-auto">
         <div class="text-center">
-            <h2 class="text-3xl font-bold text-secondary">Our Popular Menu</h2>
+            <h2 class="text-3xl font-bold text-secondary">Our Popular Items</h2>
             <p class="text-xl mt-4 text-quaternary">
                 Discover a variety of delicious meals and drinks, carefully crafted to satisfy your cravings.
             </p>
@@ -99,18 +111,42 @@
 
         <div class="swiper swiper-container mt-12">
             <div class="swiper-wrapper">
-                @foreach($menus as $menu)
+                @forelse($popularItems as $menu)
                     <div class="swiper-slide">
                         <div class="bg-tertiary shadow-lg border border-gray-200 rounded-lg overflow-hidden">
                             <img src="{{ asset('fooditem/' . $menu->image) }}" alt="{{ $menu->name }}" class="w-full h-64 object-cover">
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">{{ $menu->name }}</h3>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="text-xl font-semibold text-gray-800">{{ $menu->name }}</h3>
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Popular</span>
+                                </div>
                                 <p class="mt-2 text-quaternary">{{ $menu->description }}</p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">Rs. {{ $menu->price }}</p>
+                                
+                                <div class="flex items-center justify-between mt-4">
+                                    <p class="text-lg text-gray-800 font-semibold">Rs. {{ $menu->price }}</p>
+                                    
+                                    <form action="{{ route('cart.store', $menu->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="price" value="{{ $menu->price }}">
+                                        <button type="submit" class="bg-secondary hover:bg-secondary/90 text-white px-2 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
+                                            <i class="ri-shopping-cart-line"></i>
+                                            Add to Cart
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="swiper-slide">
+                        <div class="bg-tertiary shadow-lg border border-gray-200 rounded-lg p-8 text-center">
+                            <i class="ri-restaurant-line text-4xl text-gray-400 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-600">No Popular Items</h3>
+                            <p class="text-gray-500 mt-2">Popular items will appear here when marked by admin</p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
 
@@ -121,6 +157,7 @@
         </div>
     </div>
 </section>
+
 
 
 
@@ -173,7 +210,7 @@
                                     </span>
                                 </label>
                             </div>
-                            
+
                             <div>
                                 <label for="people" class="relative">
                                     <input type="text" placeholder="No. of People" name="people"

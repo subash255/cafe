@@ -12,8 +12,9 @@ class HomepageController extends Controller
 {
     public function index()
     {
-         $menus = Fooditems::all();
-        return view('welcome', compact('menus'));
+        $menus = Fooditems::all();
+        $popularItems = Fooditems::popular()->limit(6)->get(); // Use scope for popular items
+        return view('welcome', compact('menus', 'popularItems'));
     }
 
     public function about()
@@ -29,8 +30,8 @@ class HomepageController extends Controller
     public function menu()
     {
         $menus = Fooditems::all();
-        // Logic for displaying the menu can be added here
-        return view('menu',compact('menus'));
+        $popularItems = Fooditems::popular()->limit(8)->get(); // Use scope for popular items
+        return view('menu', compact('menus', 'popularItems'));
     }
 
     public function dashboard()

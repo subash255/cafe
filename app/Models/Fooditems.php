@@ -17,4 +17,16 @@ class Fooditems extends Model
     {
         return $this->hasMany(OrderItem::class, 'fooditem_id');
     }
+
+    // Scope for popular items
+    public function scopePopular($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    // Scope for active items
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }

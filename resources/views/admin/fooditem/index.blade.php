@@ -244,28 +244,24 @@
                         
                         <td data-label="Category">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-2">
-                                    <i class="ri-folder-line text-white text-sm"></i>
-                                </div>
+                                
                                 <span class="text-sm font-medium text-gray-900 searchable-category">{{ $fooditem->category->name ?? 'No Category' }}</span>
                             </div>
                         </td>
                         <td data-label="Type">
                             @if($fooditem->type === 'veg')
                                 <span class="status-badge status-active">
-                                    <i class="ri-leaf-line mr-1"></i>
                                     Veg
                                 </span>
                             @else
                                 <span class="status-badge status-pending">
-                                    <i class="ri-restaurant-line mr-1"></i>
                                     Non-Veg
                                 </span>
                             @endif
                         </td>
                         <td data-label="Price">
                             <div class="flex items-center">
-                                <span class="text-lg font-bold text-green-600 searchable-price">Rs.{{ number_format($fooditem->price, 2) }}</span>
+                                <span class="text-lg font-bold text-green-600 searchable-price">Rs.{{ number_format($fooditem->price) }}</span>
                             </div>
                         </td>
                         <td data-label="Status">
@@ -276,7 +272,7 @@
                                     <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm {{ $fooditem->status ? 'transform translate-x-6' : '' }}"></div>
                                 </div>
                                 <span class="ml-2 text-sm font-medium {{ $fooditem->status ? 'text-green-600' : 'text-gray-500' }}">
-                                    {{ $fooditem->status ? 'Active' : 'Inactive' }}
+                                    {{ $fooditem->status ? 'Popular' : 'Regular' }}
                                 </span>
                             </label>
                         </td>
@@ -404,7 +400,7 @@
         }
     });
 
-    // Enhanced toggle switches
+    // Enhanced toggle switches with AJAX functionality
     document.querySelectorAll('.toggle-switch').forEach(toggle => {
         toggle.addEventListener('change', function() {
             const fooditemId = this.getAttribute('data-id');
@@ -417,20 +413,46 @@
                 toggleContainer.classList.add('bg-gradient-to-r', 'from-green-400', 'to-green-500');
                 toggleContainer.classList.remove('bg-gray-200');
                 toggleContainer.querySelector('div').classList.add('transform', 'translate-x-6');
-                statusText.textContent = 'Active';
+                statusText.textContent = 'Popular';
                 statusText.classList.add('text-green-600');
                 statusText.classList.remove('text-gray-500');
             } else {
                 toggleContainer.classList.remove('bg-gradient-to-r', 'from-green-400', 'to-green-500');
                 toggleContainer.classList.add('bg-gray-200');
                 toggleContainer.querySelector('div').classList.remove('transform', 'translate-x-6');
-                statusText.textContent = 'Inactive';
+                statusText.textContent = 'Regular';
                 statusText.classList.remove('text-green-600');
                 statusText.classList.add('text-gray-500');
             }
 
-            // You can add AJAX functionality here if needed
-            console.log(`Food item ${fooditemId} status changed to ${newState}`);
+            // Send AJAX request to update status
+            fetch(`/admin/fooditem/update-toggle/${fooditemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ state: newState })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(
+                        `Food item ${newState ? 'marked as popular' : 'removed from popular items'}!`,
+                        'success'
+                    );
+                } else {
+                    // Revert UI changes if server request failed
+                    this.checked = !this.checked;
+                    showNotification('Failed to update status', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Revert UI changes if request failed
+                this.checked = !this.checked;
+                showNotification('Failed to update status', 'error');
+            });
         });
     });
 
