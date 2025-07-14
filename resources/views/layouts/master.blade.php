@@ -133,22 +133,18 @@
                                         <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
                                     </div>
                                     
-                                    @if(Auth::user()->isAdmin())
-                                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-                                            <i class="ri-dashboard-line mr-2"></i>
-                                            Admin Dashboard
-                                        </a>
-                                    @else
+                                  
+                                        
                                         <a href="{{ route('user.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                             <i class="ri-dashboard-line mr-2"></i>
                                             My Dashboard
                                         </a>
-                                    @endif
-                                    
+                                   
+{{--                                     
                                     <a href="{{ route('profile.edit') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                         <i class="ri-user-line mr-2"></i>
                                         Profile Settings
-                                    </a>
+                                    </a> --}}
                                     
                                     <div class="border-t border-gray-100 mt-1">
                                         <form method="POST" action="{{ route('logout') }}" class="block">
@@ -206,11 +202,8 @@
                         <div class="border-t border-gray-600 mt-4 pt-4">
                             <li class="text-sm text-gray-400 px-2">{{ Auth::user()->name }}</li>
                             
-                            @if(Auth::user()->isAdmin())
-                                <li><a href="{{ route('admin.dashboard') }}" class="block py-2 hover:text-secondary">Admin Dashboard</a></li>
-                            @else
+                            
                                 <li><a href="{{ route('user.dashboard') }}" class="block py-2 hover:text-secondary">My Dashboard</a></li>
-                            @endif
                             
                             <li><a href="{{ route('profile.edit') }}" class="block py-2 hover:text-secondary">Profile Settings</a></li>
                             

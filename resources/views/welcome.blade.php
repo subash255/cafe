@@ -37,7 +37,7 @@
                     comfort, and good company.
                 </p>
                 <div class="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                    <a href="#">
+                    <a href="{{ route('menu') }}" class="rounded-md overflow-hidden">
                         <button class="rounded-md overflow-hidden">
                             <div class="bg-secondary hover:bg-primary py-2 px-8 relative">
                                 <div class="flex items-center gap-x-3 relative z-20">
@@ -87,93 +87,41 @@
     
 
 
-    <!-- Menu Preview Section -->
-    <section class="bg-gray-50 py-10 xl:px-12 lg:px-8 sm:px-5 px-3">
-        <div class="xl:max-w-7xl w-full mx-auto">
-            <div class="text-center">
-                <h2 class="text-3xl font-bold text-secondary">Our Popular Menu</h2>
-                <p class="text-xl mt-4 text-quaternary">Discover a variety of delicious meals and drinks, carefully crafted
-                    to
-                    satisfy your cravings.</p>
-            </div>
-            <div class="swiper swiper-container mt-12">
-                <div class="swiper-wrapper">
+    <!-- Dynamic Menu Preview Section -->
+<section class="bg-gray-50 py-10 xl:px-12 lg:px-8 sm:px-5 px-3">
+    <div class="xl:max-w-7xl w-full mx-auto">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-secondary">Our Popular Menu</h2>
+            <p class="text-xl mt-4 text-quaternary">
+                Discover a variety of delicious meals and drinks, carefully crafted to satisfy your cravings.
+            </p>
+        </div>
+
+        <div class="swiper swiper-container mt-12">
+            <div class="swiper-wrapper">
+                @foreach($menus as $menu)
                     <div class="swiper-slide">
-                        <div class="bg-tertiary border border-gray-200 rounded-lg overflow-hidden">
-                            <img src="images/coffee.png" alt="Menu Item 1" class="w-full h-64 object-cover">
+                        <div class="bg-tertiary shadow-lg border border-gray-200 rounded-lg overflow-hidden">
+                            <img src="{{ asset('fooditem/' . $menu->image) }}" alt="{{ $menu->name }}" class="w-full h-64 object-cover">
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Coffee & Pastry Combo</h3>
-                                <p class="mt-2 text-quaternary">A perfect combination of freshly brewed coffee and a
-                                    delicious
-                                    pastry.</p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$7.99</p>
+                                <h3 class="text-xl font-semibold text-gray-800">{{ $menu->name }}</h3>
+                                <p class="mt-2 text-quaternary">{{ $menu->description }}</p>
+                                <p class="mt-4 text-lg text-gray-800 font-semibold">Rs. {{ $menu->price }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="bg-tertiary shadow-lg rounded-lg overflow-hidden">
-                            <img src="images/salaad.jpg" alt="Menu Item 2" class="w-full h-64 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Salad Bowl</h3>
-                                <p class="mt-2 text-quaternary">Fresh greens topped with your choice of protein, dressed to
-                                    perfection.</p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$9.99</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="bg-tertiary shadow-lg rounded-lg overflow-hidden">
-                            <img src="images/vegansm.jpg" alt="Menu Item 3" class="w-full h-64 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Vegan Smoothie</h3>
-                                <p class="mt-2 text-quaternary">A refreshing blend of fruits, perfect for a healthy snack.
-                                </p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$5.99</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="bg-tertiary shadow-lg rounded-lg overflow-hidden">
-                            <img src="images/vegan.jpg" alt="Menu Item 3" class="w-full h-64 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Vegan</h3>
-                                <p class="mt-2 text-quaternary">A refreshing blend of fruits, perfect for a healthy snack.
-                                </p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$5.99</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="bg-tertiary shadow-lg rounded-lg overflow-hidden">
-                            <img src="images/smoothie.jpg" alt="Menu Item 3" class="w-full h-64 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Smoothie</h3>
-                                <p class="mt-2 text-quaternary">A refreshing blend of fruits, perfect for a healthy snack.
-                                </p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$5.99</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="bg-tertiary shadow-lg rounded-lg overflow-hidden">
-                            <img src="images/fruits.jpg" alt="Menu Item 3" class="w-full h-64 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800">Fruits</h3>
-                                <p class="mt-2 text-quaternary">A refreshing blend of fruits, perfect for a healthy snack.
-                                </p>
-                                <p class="mt-4 text-lg text-gray-800 font-semibold">$5.99</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-5 flex justify-center items-center">
-                <button class="bg-secondary hover:bg-primary rounded-full p-2 text-tertiary font-bold">
-                    More Menus
-                </button>
+                @endforeach
             </div>
         </div>
-    </section>
+
+        <div class="mt-5 flex justify-center items-center">
+            <a href="{{ route('menu') }}" class="bg-secondary hover:bg-primary rounded-full p-2 px-6 text-tertiary font-bold transition-all duration-300">
+                More Menus
+            </a>
+        </div>
+    </div>
+</section>
+
 
 
     <!-- Reservation Section -->
@@ -201,7 +149,22 @@
                                 </label>
                             </div>
 
+
                             <div>
+                                <label for="email" class="relative">
+                                    <input type="email" placeholder="Enter email" name="email"
+                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                                        <i class="ri-mail-line"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+                           
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
+                             <div>
                                 <label for="phone" class="relative">
                                     <input type="text" placeholder="Phone" name="phone"
                                         class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
@@ -210,9 +173,7 @@
                                     </span>
                                 </label>
                             </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
+                            
                             <div>
                                 <label for="people" class="relative">
                                     <input type="text" placeholder="No. of People" name="people"
@@ -223,6 +184,10 @@
                                 </label>
                             </div>
 
+                            
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
                             <div>
                                 <label for="date" class="relative">
                                     <input type="date" placeholder="yyyy/mm/dd" name="date"
@@ -232,9 +197,7 @@
                                     </span>
                                 </label>
                             </div>
-                        </div>
 
-                        <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12 mt-12">
                             <div>
                                 <label for="time" class="relative">
                                     <input type="time" placeholder="Enter Time" name="time"
@@ -246,15 +209,7 @@
                             </div>
 
 
-                            <div>
-                                <label for="email" class="relative">
-                                    <input type="email" placeholder="Enter email" name="email"
-                                        class="w-full py-3 rounded-full bg-tertiary  border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                                        <i class="ri-mail-line"></i>
-                                    </span>
-                                </label>
-                            </div>
+                            
                         </div>
 
                         <div class="mt-12 text-center">

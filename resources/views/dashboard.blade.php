@@ -146,13 +146,13 @@
                         <i class="ri-arrow-right-line text-green-600 group-hover:translate-x-1 transition-transform"></i>
                     </a>
 
-                    <a href="{{ route('profile.edit') }}" class="flex items-center justify-between p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors group">
+                    {{-- <a href="{{ route('profile.edit') }}" class="flex items-center justify-between p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors group">
                         <div class="flex items-center">
                             <i class="ri-user-settings-line text-purple-600 text-xl mr-3"></i>
                             <span class="font-medium text-gray-900">Edit Profile</span>
                         </div>
                         <i class="ri-arrow-right-line text-purple-600 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </a> --}}
 
                     <a href="{{ route('contact') }}" class="flex items-center justify-between p-4 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors group">
                         <div class="flex items-center">

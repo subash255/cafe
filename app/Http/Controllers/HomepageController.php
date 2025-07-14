@@ -12,7 +12,8 @@ class HomepageController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+         $menus = Fooditems::all();
+        return view('welcome', compact('menus'));
     }
 
     public function about()
