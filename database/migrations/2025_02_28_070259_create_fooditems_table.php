@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('type');
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
