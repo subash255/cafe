@@ -133,8 +133,6 @@
                                         <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
                                     </div>
                                     
-                                  
-                                        
                                         <a href="{{ route('user.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                             <i class="ri-dashboard-line mr-2"></i>
                                             My Dashboard

@@ -86,7 +86,6 @@
                                 <input type="checkbox" class="category-filter mr-3 w-4 h-4 text-secondary border-gray-300 rounded focus:ring-secondary focus:ring-2" 
                                        value="{{ $category->id }}" data-category="{{ strtolower($category->name) }}">
                                 <label class="text-gray-700 group-hover:text-secondary transition-colors cursor-pointer flex items-center">
-                                    <i class="ri-cup-line mr-2 text-amber-600"></i>
                                     {{ $category->name }}
                                 </label>
                             </li>

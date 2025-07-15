@@ -49,7 +49,7 @@
     </a>
 
     <!-- Book Table Button -->
-    <a href="{{ route('home') }}#reservation" class="group">
+    <a href="{{ route('home') }}#tablereservation" class="group">
         <button class="relative bg-primary text-white hover:bg-secondary hover:text-white py-2 px-8 rounded-md shadow-md transition-all duration-300 transform group-hover:scale-105">
             <div class="flex items-center gap-x-2">
                 <i class="fas fa-calendar-check text-xl"></i>

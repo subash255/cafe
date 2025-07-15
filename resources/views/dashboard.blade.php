@@ -170,7 +170,7 @@
                         <i class="ri-arrow-right-line text-blue-600 group-hover:translate-x-1 transition-transform"></i>
                     </a>
 
-                    <a href="{{ route('home') }}#reservation" class="flex items-center justify-between p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors group">
+                    <a href="{{ route('home') }}#tablereservation" class="flex items-center justify-between p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors group">
                         <div class="flex items-center">
                             <i class="ri-calendar-check-line text-green-600 text-xl mr-3"></i>
                             <span class="font-medium text-gray-900">Make Reservation</span>
