@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->integer('people');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }
