@@ -164,15 +164,14 @@
                         <td data-label="Items">
                             <div class="space-y-1">
                                 <div class="flex items-center">
-                                    <span class="text-sm font-medium text-gray-900">{{ $order->orderItems->count() }} items</span>
+                                    <span class="text-sm font-medium text-gray-900">{{ $order->orderItems->count() }}</span>
                                 </div>
                                
                             </div>
                         </td>
                         <td data-label="Amount">
                             <div class="text-center">
-                                <p class="text-lg font-bold text-gray-900">${{ number_format($order->total_amount, 2) }}</p>
-                                <p class="text-xs text-gray-500">Total</p>
+                                <p class="text-sm font-bold text-gray-900">Rs. {{ number_format($order->total_amount) }}</p>
                             </div>
                         </td>
                         <td data-label="Payment Method">

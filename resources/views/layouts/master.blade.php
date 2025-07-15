@@ -74,11 +74,32 @@
                 </div>
                 <div class="hidden md:flex items-center justify-center w-full">
                     <ul class="flex items-center space-x-6 mx-auto">
-                        <li><a href="/" class="hover:text-secondary">Home</a></li>
-                        <li><a href="{{ route('about') }}" class="hover:text-secondary">About Us</a></li>
-                        <li><a href="{{ route('menu') }}" class="hover:text-secondary">Menu</a></li>
-                        <li><a href="{{ route('contact') }}" class="hover:text-secondary">Contact</a></li>
-                    </ul>
+    <li>
+        <a href="/" 
+           class="{{ request()->is('/') ? 'text-secondary font-semibold' : 'hover:text-secondary' }}">
+           Home
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('about') }}" 
+           class="{{ request()->routeIs('about') ? 'text-secondary font-semibold' : 'hover:text-secondary' }}">
+           About Us
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('menu') }}" 
+           class="{{ request()->routeIs('menu') ? 'text-secondary font-semibold' : 'hover:text-secondary' }}">
+           Menu
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('contact') }}" 
+           class="{{ request()->routeIs('contact') ? 'text-secondary font-semibold' : 'hover:text-secondary' }}">
+           Contact
+        </a>
+    </li>
+</ul>
+
                 </div>
                 <div class="hidden md:flex items-center space-x-4">
 

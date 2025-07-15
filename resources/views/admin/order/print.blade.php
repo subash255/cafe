@@ -143,8 +143,8 @@
             <tr>
                 <td>{{ $item->fooditem->name ?? 'Unknown Item' }}</td>
                 <td>{{ $item->quantity }}</td>
-                <td>${{ number_format($item->price, 2) }}</td>
-                <td>${{ number_format($item->total, 2) }}</td>
+                <td>Rs. {{ number_format($item->price, 2) }}</td>
+                <td>Rs. {{ number_format($item->total, 2) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -153,15 +153,15 @@
     <div class="total-section">
         <div class="total-row">
             <span>Subtotal:</span>
-            <span>${{ number_format($order->orderItems->sum('total'), 2) }}</span>
+            <span>Rs. {{ number_format($order->orderItems->sum('total'), 2) }}</span>
         </div>
         <div class="total-row">
             <span>Tax & Fees:</span>
-            <span>${{ number_format($order->total_amount - $order->orderItems->sum('total'), 2) }}</span>
+            <span>Rs. {{ number_format($order->total_amount - $order->orderItems->sum('total'), 2) }}</span>
         </div>
         <div class="total-row total-amount">
             <span>Total Amount:</span>
-            <span>${{ number_format($order->total_amount, 2) }}</span>
+            <span>Rs. {{ number_format($order->total_amount, 2) }}</span>
         </div>
     </div>
 

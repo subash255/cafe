@@ -192,7 +192,7 @@
                     <div class="grid sm:grid-cols-2 gap-x-6 gap-y-12">
                         <div>
                             <label for="name" class="relative">
-                                <input type="text" placeholder="Name" name="name" value="{{ old('name') }}"
+                                <input type="text" placeholder="Name" name="name" value="{{ old('name', auth()->user()->name ?? '')  }}"
                                     class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                 <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                     <i class="ri-user-3-line"></i>
@@ -202,7 +202,7 @@
 
                         <div>
                             <label for="email" class="relative">
-                                <input type="email" placeholder="Enter email" name="email" value="{{ old('email') }}"
+                                <input type="email" placeholder="Enter email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}"
                                     class="w-full py-3 rounded-full bg-tertiary border border-blue-600 focus:border-blue-600 focus:ring-0 pl-6 text-black placeholder:text-black">
                                 <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                                     <i class="ri-mail-line"></i>

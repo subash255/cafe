@@ -24,7 +24,7 @@
     <!-- Form -->
     <form action="{{ route('admin.category.update', $category->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
       @csrf
-      @method('PATCH')
+      @method('PUT')
 
       {{-- Error Message --}}
       @if ($errors->any())
