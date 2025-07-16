@@ -92,7 +92,6 @@
 </div>
 
 
-
 <!-- Enhanced Modal Structure -->
 <div id="fooditemModal" class="fixed inset-0 modern-modal modal-hidden items-center justify-center z-50">
     <div class="modal-content p-6 w-full relative">
