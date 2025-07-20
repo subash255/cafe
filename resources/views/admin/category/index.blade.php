@@ -171,12 +171,9 @@
                         </td>
                         <td data-label="Category Name">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="ri-folder-line text-white"></i>
-                                </div>
+                                
                                 <div>
                                     <p class="text-sm font-semibold text-gray-900 searchable-name">{{ $category->name }}</p>
-                                    <p class="text-xs text-gray-500">Created {{ $category->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                         </td>
@@ -185,9 +182,7 @@
                         </td>
                         <td data-label="Items Count">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mr-2">
-                                    <i class="ri-restaurant-line text-white text-sm"></i>
-                                </div>
+                                
                                 <span class="text-sm font-semibold text-gray-900">{{ $category->fooditems->count() }}</span>
                                 <span class="text-xs text-gray-500 ml-1">items</span>
                             </div>
