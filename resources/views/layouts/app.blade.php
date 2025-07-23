@@ -385,15 +385,8 @@
                                 <p class="text-sm text-gray-600">{{ Auth::user()->email }}</p>
                             </div>
                             <div class="py-2">
-                                <a href="{{ route('profile.edit') }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class="ri-user-settings-line mr-3 text-gray-400"></i>
-                                    <span>Edit Profile</span>
-                                </a>
-                                <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class="ri-settings-3-line mr-3 text-gray-400"></i>
-                                    <span>Settings</span>
-                                </a>
-                                <div class="border-t border-gray-100 my-2"></div>
+                                
+                                <div class="border-t border-gray-100"></div>
                                 <form action="{{ route('logout') }}" method="POST" class="w-full">
                                     @csrf
                                     <button type="submit" class="flex items-center w-full px-4 py-3 text-red-600 hover:bg-red-50 transition-colors">

@@ -45,7 +45,7 @@
         <i class="ri-search-line search-icon"></i>
         <input type="text" 
                id="searchInput" 
-               placeholder="Search reservations by name, email, phone, or date..." 
+               placeholder="Search reservations by name, email, or phone..." 
                class="search-input">
     </div>
 </div>
@@ -94,6 +94,8 @@
                                 </div>
                             </div>
                         </td>
+                        
+                        
                         
                         <td data-label="Guests">
                             <div class="flex items-center">
@@ -210,15 +212,17 @@
         const rows = document.querySelectorAll('.reservation-row');
         
         rows.forEach(row => {
-            const name = row.querySelector('.searchable-name').textContent.toLowerCase();
-            const email = row.querySelector('.searchable-email').textContent.toLowerCase();
-            const phone = row.querySelector('.searchable-phone').textContent.toLowerCase();
-            const date = row.querySelector('.searchable-date').textContent.toLowerCase();
+            const name = row.querySelector('.searchable-name')?.textContent.toLowerCase() || '';
+            const email = row.querySelector('.searchable-email')?.textContent.toLowerCase() || '';
+            const phone = row.querySelector('.searchable-phone')?.textContent.toLowerCase() || '';
+            const date = row.querySelector('.searchable-date')?.textContent.toLowerCase() || '';
+            const time = row.querySelector('.searchable-time')?.textContent.toLowerCase() || '';
             
             const isVisible = name.includes(searchTerm) || 
                             email.includes(searchTerm) || 
                             phone.includes(searchTerm) || 
-                            date.includes(searchTerm);
+                            date.includes(searchTerm) ||
+                            time.includes(searchTerm);
             
             row.style.display = isVisible ? '' : 'none';
         });

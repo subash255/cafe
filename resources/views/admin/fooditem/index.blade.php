@@ -252,10 +252,19 @@
                                 <span class="status-badge status-active">
                                     Veg
                                 </span>
-                            @else
+                            @elseif($fooditem->type === 'non-veg')
                                 <span class="status-badge status-pending">
                                     Non-Veg
                                 </span>
+                            @elseif($fooditem->type === 'drinks')
+                                <span class="status-badge status-inactive">
+                                    Drinks
+                                </span>
+                            @else
+                                <span class="status-badge status-default">
+                                    Unknown
+                                </span>
+
                             @endif
                         </td>
                         <td data-label="Price">
@@ -317,13 +326,11 @@
         const rows = document.querySelectorAll('.fooditem-row');
         
         rows.forEach(row => {
-            const name = row.querySelector('.searchable-name').textContent.toLowerCase();
-            const slug = row.querySelector('.searchable-slug').textContent.toLowerCase();
-            const category = row.querySelector('.searchable-category').textContent.toLowerCase();
-            const price = row.querySelector('.searchable-price').textContent.toLowerCase();
+            const name = row.querySelector('.searchable-name')?.textContent.toLowerCase() || '';
+            const category = row.querySelector('.searchable-category')?.textContent.toLowerCase() || '';
+            const price = row.querySelector('.searchable-price')?.textContent.toLowerCase() || '';
             
             const isVisible = name.includes(searchTerm) || 
-                            slug.includes(searchTerm) || 
                             category.includes(searchTerm) || 
                             price.includes(searchTerm);
             
