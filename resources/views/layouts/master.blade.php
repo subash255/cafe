@@ -12,6 +12,55 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <style>
+        /* Custom styles for recommended section */
+        .swiper-recommended .swiper-slide {
+            height: auto;
+        }
+        
+        
+        .swiper-pagination-recommended .swiper-pagination-bullet {
+            background: #9ca3af !important;
+            opacity: 0.5 !important;
+        }
+        
+        .swiper-pagination-recommended .swiper-pagination-bullet-active {
+            background: #3b82f6 !important;
+            opacity: 1 !important;
+        }
+        
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Ensure equal height cards */
+        .swiper-recommended .swiper-slide > div {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .swiper-recommended .swiper-slide .p-5 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .swiper-recommended .swiper-slide .p-5 > div:last-child {
+            margin-top: auto;
+        }
+    </style>
 </head>
 
 <body class="font-[Jost]">
@@ -439,6 +488,53 @@
                     1024: {
                         slidesPerView: 3, // Show 3 slides for laptops and larger devices
                         spaceBetween: 20,
+                    },
+                }
+            });
+
+            // Recommended Items Swiper Initialization
+            var swiperRecommended = new Swiper('.swiper-recommended', {
+                loop: true,
+                slidesPerView: 4,
+                spaceBetween: 30,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next-recommended',
+                    prevEl: '.swiper-button-prev-recommended',
+                },
+                pagination: {
+                    el: '.swiper-pagination-recommended',
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                grabCursor: true,
+                breakpoints: {
+                    320: { // For very small screens (mobile)
+                        slidesPerView: 1, // Show 1 slide on very small screens
+                        spaceBetween: 15, // Smaller space between slides
+                    },
+                    480: { // For small screens (larger mobile)
+                        slidesPerView: 1, // Show 1 slide
+                        spaceBetween: 15,
+                    },
+                    640: {
+                        slidesPerView: 2, // Show 2 slides for small tablets
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2, // Show 2 slides for larger mobile/tablets
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3, // Show 3 slides for laptops
+                        spaceBetween: 25,
+                    },
+                    1280: {
+                        slidesPerView: 4, // Show 4 slides for larger screens
+                        spaceBetween: 30,
                     },
                 }
             });

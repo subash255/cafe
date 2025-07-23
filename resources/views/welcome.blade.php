@@ -21,6 +21,7 @@
         }, 3000);
     }
 </script>
+
     <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 14, 14, 0.5)), url('images/bg.jpg')"
         class="bg-cover bg-center w-full">
         <div class="text-tertiary py-12 sm:py-16 md:py-24 lg:py-36 xl:px-0 lg:px-0 sm:px-6">
@@ -64,6 +65,81 @@
         </div>
     </div>
 
+    <!-- Recommended for You Section (Only for logged in users with cart items) -->
+    @auth
+    @if(isset($recommendedItems) && $recommendedItems->count() > 0)
+    <section class="bg-white py-16 xl:px-12 lg:px-8 sm:px-5 px-3">
+        <div class="xl:max-w-7xl w-full mx-auto">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-secondary">
+                    <i class="ri-heart-line text-red-500 mr-2"></i>Recommended for You
+                </h2>
+                <p class="text-xl mt-4 text-quaternary">
+                    Based on your recent selections, we think you'll love these items too!
+                </p>
+            </div>
+
+            <div class="swiper swiper-recommended mt-12 relative">
+                <div class="swiper-wrapper">
+                    @foreach($recommendedItems as $item)
+                        <div class="swiper-slide">
+                            <div class="bg-white shadow-lg border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full">
+                                <div class="relative">
+                                    <img src="{{ asset('fooditem/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-48 object-cover">
+                                    <div class="absolute top-3 right-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs px-3 py-1 rounded-full shadow-lg">
+                                        <i class="ri-thumb-up-line mr-1"></i>For You
+                                    </div>
+                                    @if($item->status == 1)
+                                    <div class="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs px-3 py-1 rounded-full shadow-lg">
+                                        <i class="ri-fire-line mr-1"></i>Popular
+                                    </div>
+                                    @endif
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                </div>
+                                <div class="p-5">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h3 class="text-lg font-bold text-gray-800 line-clamp-1">{{ $item->name }}</h3>
+                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full ml-2 whitespace-nowrap">
+                                            {{ $item->category->name ?? 'Uncategorized' }}
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 line-clamp-2 mb-4 min-h-[2.5rem]">{{ $item->description }}</p>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-xl font-bold text-secondary">Rs. {{ $item->price }}</p>
+                                        
+                                        <form action="{{ route('cart.store', $item->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="price" value="{{ $item->price }}">
+                                            <button type="submit" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105">
+                                                <i class="ri-shopping-cart-line text-sm"></i>
+                                                <span class="text-sm">Add</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination swiper-pagination-recommended !bottom-0 !relative !mt-6"></div>
+            </div>
+
+            <div class="mt-8 flex justify-center items-center">
+                <a href="{{ route('menu') }}" class="bg-blue-500 hover:bg-blue-600 rounded-full p-2 px-6 text-white font-bold transition-all duration-300">
+                    <i class="ri-external-link-line mr-2"></i>Explore More
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    @endif
+    @endauth
+
     <!-- About Section -->
     <section class="py-20 xl:px-16 lg:px-12 sm:px-8 px-6 bg-gray-50">
         <div class="xl:max-w-7xl w-full mx-auto">
@@ -96,8 +172,6 @@
             </div>
         </div>
     </section>
-    
-
 
     <!-- Dynamic Menu Preview Section -->
 <section class="bg-gray-50 py-10 xl:px-12 lg:px-8 sm:px-5 px-3">
@@ -158,9 +232,6 @@
     </div>
 </section>
 
-
-
-
     <!-- Reservation Section -->
 <div id="tablereservation"
     style="background-image: linear-gradient(rgba(17, 17, 17, 0.96), rgba(23, 16, 7, 0.89)), url('images/reserve.jpg');"
@@ -183,8 +254,6 @@
                     </ul>
                 </div>
             @endif
-
-        
 
             <div class="mt-10">
                 <form action="{{ route('reservation.store') }}" autocomplete="off" method="POST">
@@ -267,7 +336,6 @@
     </div>
 </div>
 
-
     <!-- Testimonial Section -->
     <section class="bg-gray-50 py-16 xl:px-12 lg:px-8 sm:px-5 px-3">
         <div class="xl:max-w-7xl w-full mx-auto">
@@ -286,8 +354,8 @@
                             <i class="ri-user-fill text-black text-3xl"></i>
                         </div>
                         <p class="mt-4 text-quaternary italic">
-                            <span class="text-secondary text-xl">“</span>I love the variety of smoothies and fresh salads.
-                            Always a healthy and tasty option!<span class="text-secondary text-xl">”</span>
+                            <span class="text-secondary text-xl">"</span>I love the variety of smoothies and fresh salads.
+                            Always a healthy and tasty option!<span class="text-secondary text-xl">"</span>
                         </p>
                         <h4 class="mt-4 text-primary font-bold">Sohan Kafle</h4>
                     </div>
@@ -299,8 +367,8 @@
                             <i class="ri-user-fill text-black text-3xl"></i>
                         </div>
                         <p class="mt-4 text-quaternary italic">
-                            <span class="text-secondary text-xl">“</span>Such a cozy place with great vibes. The vegan
-                            smoothie is a game-changer!<span class="text-secondary text-xl">”</span>
+                            <span class="text-secondary text-xl">"</span>Such a cozy place with great vibes. The vegan
+                            smoothie is a game-changer!<span class="text-secondary text-xl">"</span>
                         </p>
                         <h4 class="mt-4 text-primary font-bold">Subash Adhikari</h4>
                     </div>
@@ -312,8 +380,8 @@
                             <i class="ri-user-fill text-black text-3xl"></i>
                         </div>
                         <p class="mt-4 text-quaternary italic">
-                            <span class="text-secondary text-xl">“</span>The staff is friendly, and the food is always fresh.
-                            I’m definitely coming back for more!<span class="text-secondary text-xl">”</span>
+                            <span class="text-secondary text-xl">"</span>The staff is friendly, and the food is always fresh.
+                            I'm definitely coming back for more!<span class="text-secondary text-xl">"</span>
                         </p>
                         <h4 class="mt-4 text-primary font-bold">Pramisha Thapa</h4>
                     </div>
@@ -325,8 +393,8 @@
                             <i class="ri-user-fill text-black text-3xl"></i>
                         </div>
                         <p class="mt-4 text-quaternary italic">
-                            <span class="text-secondary text-xl">“</span>Absolutely love this place. The fruit bowls are
-                            always so fresh and refreshing!<span class="text-secondary text-xl">”</span>
+                            <span class="text-secondary text-xl">"</span>Absolutely love this place. The fruit bowls are
+                            always so fresh and refreshing!<span class="text-secondary text-xl">"</span>
                         </p>
                         <h4 class="mt-4 text-primary font-bold">Ishika Sigdel</h4>
                     </div>
@@ -337,9 +405,9 @@
                             class="w-20 h-20 rounded-full mx-auto border-2 border-blue-400 shadow-md bg-tertiary flex items-center justify-center -mt-16">
                             <i class="ri-user-fill text-black text-3xl"></i>
                         </div>
-                        <p class="mt-4 text-quaternary italic">
-                            <span class="text-secondary text-xl">“</span>The food here is amazing! The coffee and pastries
-                            are the perfect combination. <span class="text-secondary text-xl">”</span>
+                                                <p class="mt-4 text-quaternary italic">
+                            <span class="text-secondary text-xl">"</span>The food here is amazing! The coffee and pastries
+                            are the perfect combination. <span class="text-secondary text-xl">"</span>
                         </p>
                         <h4 class="mt-4 text-primary font-bold">Aakash Kandel</h4>
                     </div>
@@ -349,3 +417,4 @@
     </section>
 
 @endsection
+ 
