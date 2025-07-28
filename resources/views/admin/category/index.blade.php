@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Categories Management', 'description' => 'Organize and manage your menu categories'])
 @section('content')
 
 @include('components.admin-table-styles')

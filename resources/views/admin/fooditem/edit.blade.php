@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Edit Food Item', 'description' => 'Update the details of your food item'])
 @section('content')
 
   <!-- Flash Message -->

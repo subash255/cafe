@@ -348,22 +348,13 @@
                     </button>
                     
                     <div>
-                        <h1 class="text-2xl font-bold">{{ $title ?? 'Dashboard' }}</h1>
-                        <p class="text-blue-100 text-sm mt-1">Welcome back to your admin panel</p>
+                        <h1 class="text-2xl font-bold">{{ $title }}</h1>
+                        <p class="text-blue-100 text-sm mt-1">{{ $description ?? ''}}</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <!-- Notifications -->
-                    <button class="relative text-white hover:bg-white/10 p-2 rounded-lg transition-colors">
-                        <i class="ri-notification-3-line text-xl"></i>
-                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-                    </button>
                     
-                    <!-- Settings -->
-                    <button class="text-white hover:bg-white/10 p-2 rounded-lg transition-colors">
-                        <i class="ri-settings-3-line text-xl"></i>
-                    </button>
                     
                     <!-- User Profile Dropdown -->
                     <div class="relative group">

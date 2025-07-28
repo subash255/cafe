@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Reservations Management', 'description' => 'View and manage table reservations'])
 @section('content')
 
 @include('components.admin-table-styles')
